@@ -1,19 +1,19 @@
 <p align="center">
-    <a href="https://www.mangoweb.cz/en/" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/38423357?s=200&v=4"/>
+    <a href="https://www.3brs.com" target="_blank">
+        <img src="https://3brs1.fra1.cdn.digitaloceanspaces.com/3brs/logo/3BRS-logo-sylius-200.png"/>
     </a>
 </p>
 <h1 align="center">
 Contact Form Plugin
 <br />
-    <a href="https://packagist.org/packages/mangoweb-sylius/sylius-contact-form-plugin" title="License" target="_blank">
-        <img src="https://img.shields.io/packagist/l/mangoweb-sylius/sylius-contact-form-plugin.svg" />
+    <a href="https://packagist.org/packages/3brs/sylius-contact-form-plugin" title="License" target="_blank">
+        <img src="https://img.shields.io/packagist/l/3brs/sylius-contact-form-plugin.svg" />
     </a>
-    <a href="https://packagist.org/packages/mangoweb-sylius/sylius-contact-form-plugin" title="Version" target="_blank">
-        <img src="https://img.shields.io/packagist/v/mangoweb-sylius/sylius-contact-form-plugin.svg" />
+    <a href="https://packagist.org/packages/3brs/sylius-contact-form-plugin" title="Version" target="_blank">
+        <img src="https://img.shields.io/packagist/v/3brs/sylius-contact-form-plugin.svg" />
     </a>
-    <a href="http://travis-ci.org/mangoweb-sylius/SyliusContactFormPlugin" title="Build status" target="_blank">
-        <img src="https://img.shields.io/travis/mangoweb-sylius/SyliusContactFormPlugin/master.svg" />
+    <a href="http://travis-ci.com/3brs/sylius-contact-form-plugin" title="Build status" target="_blank">
+        <img src="https://img.shields.io/travis/3brs/sylius-contact-form-plugin/master.svg" />
     </a>
 </h1>
 
@@ -26,21 +26,21 @@ Contact Form Plugin
     * Possibility to respond instantly
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/mangoweb-sylius/SyliusContactFormPlugin/master/doc/contact_form.PNG"/>
+	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/contact_form.PNG"/>
 </p>
 <p align="center">
-	<img src="https://raw.githubusercontent.com/mangoweb-sylius/SyliusContactFormPlugin/master/doc/messages_management_admin_menu.PNG"/>
+	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/messages_management_admin_menu.PNG"/>
 </p>
 <p align="center">
-	<img src="https://raw.githubusercontent.com/mangoweb-sylius/SyliusContactFormPlugin/master/doc/messages_management_admin_answer_menu.PNG"/>
+	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/messages_management_admin_answer_menu.PNG"/>
 </p>
 <p align="center">
-	<img src="https://raw.githubusercontent.com/mangoweb-sylius/SyliusContactFormPlugin/master/doc/messages_management_account_menu.PNG"/>
+	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/messages_management_account_menu.PNG"/>
 </p>
 
 ## Installation
 
-1. Run `$ composer require mangoweb-sylius/sylius-contact-form-plugin`.
+1. Run `$ composer require 3brs/sylius-contact-form-plugin`.
 1. Add plugin classes to your `config/bundles.php`:
  
    ```php
@@ -132,4 +132,5 @@ This library is under the MIT license.
 
 Credits
 -------
-Developed by [manGoweb](https://www.mangoweb.eu/).
+Developed by [3BRS](https://3brs.com)<br>
+Forked from [manGoweb](https://github.com/mangoweb-sylius/SyliusContactFormPlugin).

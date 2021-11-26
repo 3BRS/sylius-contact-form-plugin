@@ -1,5 +1,5 @@
 {
-    "name": "mangoweb-sylius/sylius-contact-form-plugin",
+    "name": "3brs/sylius-contact-form-plugin",
     "type": "sylius-plugin",
     "keywords": ["sylius", "sylius-plugin"],
     "description": "Contact form plugin for Sylius.",

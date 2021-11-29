@@ -4,70 +4,73 @@ services:
     autoconfigure: false
     public: false
 
-  MangoSylius\SyliusContactFormPlugin\Model\ContactFormSettingsProvider: ~
+  ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface: '@threebrs_sylius_contact_form_plugin.repository.message'
+  ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepositoryInterface: '@threebrs_sylius_contact_form_plugin.repository.answer'
 
-  MangoSylius\SyliusContactFormPlugin\Form\Type\ContactFormMessageType:
+  ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider: ~
+
+  ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageType:
     tags:
       - name: form.type
     arguments:
-      $contactFormSettings: '@MangoSylius\SyliusContactFormPlugin\Model\ContactFormSettingsProvider'
+      $contactFormSettings: '@ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider'
 
-  MangoSylius\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType:
+  ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType:
     tags:
       - name: form.type
 
-  MangoSylius\SyliusContactFormPlugin\Menu\AdminContactMenuBuilder:
+  ThreeBRS\SyliusContactFormPlugin\Menu\AdminContactMenuBuilder:
     tags:
       - name: kernel.event_listener
         event: sylius.menu.admin.main
         method: buildMenu
 
-  MangoSylius\SyliusContactFormPlugin\Menu\AccountContactMenuBuilder:
+  ThreeBRS\SyliusContactFormPlugin\Menu\AccountContactMenuBuilder:
     tags:
       - name: kernel.event_listener
         event: sylius.menu.shop.account
         method: buildMenu
 
-  MangoSylius\SyliusContactFormPlugin\Controller\ContactFormAccountController:
+  ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAccountController:
     decorates: sylius.controller.shop.contact
     tags:
       - name: controller.service_arguments
     arguments:
       $translator: '@translator'
-      $templatingEngine: '@templating'
+      $templatingEngine: '@twig'
       $entityManager: '@doctrine.orm.entity_manager'
       $router: '@router'
       $flashBag: '@session.flash_bag'
       $builder: '@form.factory'
       $channelContext: '@sylius.context.channel'
-      $contactFormMessageRepository: '@mango_contact_form_plugin.repository.message'
-      $contactFormMessageAnswerRepository: '@mango_contact_form_plugin.repository.answer'
+      $contactFormMessageRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface'
+      $contactFormMessageAnswerRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepositoryInterface'
       $tokenStorage: '@security.token_storage'
 
-  MangoSylius\SyliusContactFormPlugin\Controller\ContactFormAdminController:
+  ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAdminController:
     decorates: sylius.controller.shop.contact
     tags:
       - name: controller.service_arguments
     arguments:
       $translator: '@translator'
-      $templatingEngine: '@templating'
+      $templatingEngine: '@twig'
       $entityManager: '@doctrine.orm.entity_manager'
       $mailer: '@sylius.email_sender'
       $router: '@router'
       $flashBag: '@session.flash_bag'
       $builder: '@form.factory'
-      $contactFormMessageRepository: '@mango_contact_form_plugin.repository.message'
-      $contactFormMessageAnswerRepository: '@mango_contact_form_plugin.repository.answer'
+      $contactFormMessageRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface'
+      $contactFormMessageAnswerRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepositoryInterface'
       $tokenStorage: '@security.token_storage'
 
-  MangoSylius\SyliusContactFormPlugin\Controller\ContactFormController:
+  ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormController:
     decorates: sylius.controller.shop.contact
     tags:
       - name: controller.service_arguments
     arguments:
-      $contactFormSettings: '@MangoSylius\SyliusContactFormPlugin\Model\ContactFormSettingsProvider'
+      $contactFormSettings: '@ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider'
       $translator: '@translator'
-      $templatingEngine: '@templating'
+      $templatingEngine: '@twig'
       $entityManager: '@doctrine.orm.entity_manager'
       $mailer: '@sylius.email_sender'
       $router: '@router'

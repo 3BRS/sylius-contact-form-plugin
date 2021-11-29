@@ -1,13 +1,13 @@
 sylius_mailer:
   emails:
-    mango_sylius_contact_form_admin_notice_mail:
+    threebrs_sylius_contact_form_admin_notice_email:
       subject: 'Message sent'
-      template: '@MangoSyliusContactFormPlugin/Shop/Email/adminNoticeEmail.html.twig'
+      template: '@ThreeBRSSyliusContactFormPlugin/Shop/Email/adminNoticeEmail.html.twig'
 
-    mango_sylius_contact_form_contact_form_email:
+    threebrs_sylius_contact_form_contact_form_email:
       subject: 'Message sent'
-      template: '@MangoSyliusContactFormPlugin/Shop/Email/contactFormEmail.html.twig'
+      template: '@ThreeBRSSyliusContactFormPlugin/Shop/Email/contactFormEmail.html.twig'
 
-    mango_sylius_contact_form_answer_mail:
+    threebrs_sylius_contact_form_answer_email:
       subject: 'Message sent'
-      template: '@MangoSyliusContactFormPlugin/Admin/Email/answerEmail.html.twig'
+      template: '@ThreeBRSSyliusContactFormPlugin/Admin/Email/answerEmail.html.twig'

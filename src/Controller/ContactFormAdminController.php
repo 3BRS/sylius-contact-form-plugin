@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\Controller;
+namespace ThreeBRS\SyliusContactFormPlugin\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessage;
-use MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessageAnswer;
-use MangoSylius\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType;
-use MangoSylius\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepository;
-use MangoSylius\SyliusContactFormPlugin\Repository\ContactFormMessageRepository;
 use Sylius\Component\Core\Model\AdminUser;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -19,12 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
+use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageAnswer;
+use ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType;
+use ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepository;
+use ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepository;
+use Twig\Environment;
 
 class ContactFormAdminController
 {
-    /** @var EngineInterface */
+    /** @var Environment */
     private $templatingEngine;
     /** @var TranslatorInterface */
     private $translator;
@@ -46,7 +46,7 @@ class ContactFormAdminController
     private $token;
 
     public function __construct(
-        EngineInterface $templatingEngine,
+        Environment $templatingEngine,
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         SenderInterface $mailer,
@@ -97,13 +97,13 @@ class ContactFormAdminController
             $this->entityManager->persist($contactFormMessageAnswer);
             $this->entityManager->flush();
 
-            $this->mailer->send('mango_sylius_contact_form_answer_mail', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessageAnswer]);
-            $this->flashBag->add('success', $this->translator->trans('mango_contact_form_plugin.success'));
+            $this->mailer->send('threebrs_sylius_contact_form_answer_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessageAnswer]);
+            $this->flashBag->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
-            return new RedirectResponse($this->router->generate('mango_sylius_admin_contact_show', ['id' => $id]));
+            return new RedirectResponse($this->router->generate('threebrs_sylius_admin_contact_show', ['id' => $id]));
         }
 
-        return new Response($this->templatingEngine->render('@MangoSyliusContactFormPlugin/Admin/show.html.twig', [
+        return new Response($this->templatingEngine->render('@ThreeBRSSyliusContactFormPlugin/Admin/show.html.twig', [
             'message' => $contactFormMessage,
             'answers' => $contactFormMessageAnswers,
             'form' => $form->createView(),

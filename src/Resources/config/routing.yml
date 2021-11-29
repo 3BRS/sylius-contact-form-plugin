@@ -1,15 +1,15 @@
-mango_sylius_contact_form_shop:
-  resource: '@MangoSyliusContactFormPlugin/Resources/config/routes/shop.yml'
+threebrs_sylius_contact_form_shop:
+  resource: '@ThreeBRSSyliusContactFormPlugin/Resources/config/routes/shop.yml'
   prefix: /{_locale}
   requirements:
     _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 
-mango_sylius_contact_form_shop_account:
-  resource: '@MangoSyliusContactFormPlugin/Resources/config/routes/account.yml'
+threebrs_sylius_contact_form_shop_account:
+  resource: '@ThreeBRSSyliusContactFormPlugin/Resources/config/routes/account.yml'
   prefix: /{_locale}/account
   requirements:
     _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 
-mango_sylius_contact_form_admin:
-  resource: '@MangoSyliusContactFormPlugin/Resources/config/routes/admin.yml'
+threebrs_sylius_contact_form_admin:
+  resource: '@ThreeBRSSyliusContactFormPlugin/Resources/config/routes/admin.yml'
   prefix: /admin

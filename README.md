@@ -12,8 +12,8 @@ Contact Form Plugin
     <a href="https://packagist.org/packages/3brs/sylius-contact-form-plugin" title="Version" target="_blank">
         <img src="https://img.shields.io/packagist/v/3brs/sylius-contact-form-plugin.svg" />
     </a>
-    <a href="http://travis-ci.com/3brs/sylius-contact-form-plugin" title="Build status" target="_blank">
-        <img src="https://img.shields.io/travis/3brs/sylius-contact-form-plugin/master.svg" />
+    <a href="https://circleci.com/gh/3BRS/sylius-contact-form-plugin" title="Build status" target="_blank">
+        <img src="https://circleci.com/gh/3BRS/sylius-contact-form-plugin.svg?style=shield" />
     </a>
 </h1>
 
@@ -41,29 +41,21 @@ Contact Form Plugin
 ## Installation
 
 1. Run `$ composer require 3brs/sylius-contact-form-plugin`.
-1. Add plugin classes to your `config/bundles.php`:
- 
-   ```php
-   return [
-      ...
-      MangoSylius\SyliusContactFormPlugin\MangoSyliusContactFormPlugin::class => ['all' => true],
-   ];
-   ```
-  
+2. Register `\ThreeBRS\SyliusContactFormPlugin\ThreeBRSSyliusContactFormPlugin` in your Kernel.
 1. Add resource to `config/packages/_sylius.yaml`
 
     ```yaml
     imports:
          ...
-         - { resource: "@MangoSyliusContactFormPlugin/Resources/config/config.yml" }
+         - { resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/config.yml" }
     ```
    
 1. Add routing to `config/_routes.yaml`
 
     ```yaml
 
-    mango_sylius_contact_form:
-        resource: "@MangoSyliusContactFormPlugin/Resources/config/routing.yml"
+    threebrs_sylius_contact_form_plugin:
+        resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/routing.yml"
     ```
 
 1. Define parameters in `.env` file
@@ -77,17 +69,17 @@ Contact Form Plugin
 
 7. Create and run doctrine database migrations.
 
-For the guide how to use your own entity see [Sylius docs - Customizing Models](https://docs.sylius.com/en/1.6/customization/model.html)
+For the guide how to use your own entity see [Sylius docs - Customizing Models](https://docs.sylius.com/en/1.10/customization/model.html)
 
 ### Usage
 
 * Parameters can be left empty if you want to run the plugin without recaptcha verification.
-* The plugin is made to work with invisible V2 recaptcha,it is essential to select this version during their creation.
+* The plugin is made to work with invisible V2 recaptcha, it is essential to select this version during their creation.
 * The plugin defines the contact email of the channel (configurable in the `Channels` tab of the `configuration` section in the administration panel) as the manager's email address.
 
 ## Configuration
    ```
-    mango_sylius_contact_form:
+    threebrs_sylius_contact_form_plugin:
         # Define if an email should be send to the manager when contact form is send
           send_manager_mail: true/false
         # Define if an email should be send to the customer when contact form is send (copy)

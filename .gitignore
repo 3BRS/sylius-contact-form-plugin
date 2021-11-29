@@ -1,7 +1,8 @@
 /.idea
 /vendor/
 /composer.lock
-
+.envrc
+/etc
 /etc/build/*
 !/etc/build/.gitignore
 
@@ -9,3 +10,13 @@
 
 /behat.yml
 /phpspec.yml
+
+yarn-error.log
+
+/bin-docker/
+/deploy/
+/docker/
+
+docker-compose.override.yaml
+docker-compose.override.dist.yaml
+docker-compose.yaml

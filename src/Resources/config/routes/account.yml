@@ -1,15 +1,15 @@
-mango_sylius_contact_form_shop_account_message_index:
+threebrs_sylius_contact_form_shop_account_message_index:
   path: messages
   methods: [GET]
   defaults:
     _controller: sylius.controller.shop_user:indexAction
     _sylius:
       section: shop_account
-      template: '@MangoSyliusContactFormPlugin/Shop/Account/index.html.twig'
-      grid: mango_sylius_account_contact_message
+      template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/index.html.twig'
+      grid: threebrs_sylius_account_contact_message
 
-mango_sylius_contact_form_shop_account_message_show:
+threebrs_sylius_contact_form_shop_account_message_show:
   path: messages/{id}
   methods: [POST, GET]
   defaults:
-    _controller: MangoSylius\SyliusContactFormPlugin\Controller\ContactFormAccountController:showAccountMessageAction
+    _controller: ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAccountController:showAccountMessageAction

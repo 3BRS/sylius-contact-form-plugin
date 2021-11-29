@@ -2,7 +2,7 @@
 
 {% import '@SyliusAdmin/Macro/breadcrumb.html.twig' as breadcrumb %}
 
-{% block title %}{{ 'mango_contact_form_plugin.ui.detailTitle'|trans ({'%customerName%': message.customerDescriptor }) }}{% endblock %}
+{% block title %}{{ 'threebrs_sylius_contact_form_plugin.ui.detailTitle'|trans ({'%customerName%': message.customerDescriptor }) }}{% endblock %}
 
 {% block content %}
 
@@ -11,14 +11,14 @@
             <h1 class="ui header">
                 <i class="circular comments icon"></i>
                 <div class="content">
-                    {{ 'mango_contact_form_plugin.ui.title'|trans }}
-                    <div class="sub header">{{ 'mango_contact_form_plugin.ui.subtitle'|trans }}</div>
+                    {{ 'threebrs_sylius_contact_form_plugin.ui.title'|trans }}
+                    <div class="sub header">{{ 'threebrs_sylius_contact_form_plugin.ui.subtitle'|trans }}</div>
                 </div>
             </h1>
 
             {% set breadcrumbs = [
                 { label: 'sylius.ui.administration'|trans, url: path('sylius_admin_dashboard') },
-                { label: 'mango_contact_form_plugin.ui.title'|trans, url: path('mango_contact_form_plugin_admin_message_index') },
+                { label: 'threebrs_sylius_contact_form_plugin.ui.title'|trans, url: path('threebrs_sylius_contact_form_plugin_admin_message_index') },
                 { label: message.customerDescriptor },
             ] %}
 
@@ -30,12 +30,12 @@
                 <div class="comment">
                     <div class="content">
                         <span class="author">
-                            {{ 'mango_contact_form_plugin.admin.show.custommer'|trans }}:
+                            {{ 'threebrs_sylius_contact_form_plugin.admin.show.custommer'|trans }}:
                             <br>
                             {{ message.customerDescriptor }}
                         </span>
                         <div class="metadata">
-                            <span class="date">{{ 'mango_contact_form_plugin.time'|trans ({'%time%': message.createdAt|date('Y-m-d H:i:s') }) }}</span>
+                            <span class="date">{{ 'threebrs_sylius_contact_form_plugin.time'|trans ({'%time%': message.createdAt|date('Y-m-d H:i:s') }) }}</span>
                         </div>
                         <div class="text">
                             {{ message.message }}
@@ -49,17 +49,17 @@
                             <div class="content">
                                 <span class="author">
                                     {% if answer.adminUser %}
-                                        {{ 'mango_contact_form_plugin.admin.show.admin'|trans }}:
+                                        {{ 'threebrs_sylius_contact_form_plugin.admin.show.admin'|trans }}:
                                         <br>
                                         {{ answer.adminUser.username }}
                                     {% else %}
-                                        {{ 'mango_contact_form_plugin.admin.show.custommer'|trans }}:
+                                        {{ 'threebrs_sylius_contact_form_plugin.admin.show.custommer'|trans }}:
                                         <br>
                                         {{ message.customerDescriptor }}
                                     {% endif %}
                                 </span>
                                 <div class="metadata">
-                                    <span class="date">{{ 'mango_contact_form_plugin.time'|trans ({'%time%': answer.createdAt|date('Y-m-d H:i:s') }) }}</span>
+                                    <span class="date">{{ 'threebrs_sylius_contact_form_plugin.time'|trans ({'%time%': answer.createdAt|date('Y-m-d H:i:s') }) }}</span>
                                 </div>
                                 <div class="text">
                                     {{ answer.message }}
@@ -69,14 +69,14 @@
                     {% endfor %}
                 {% endif %}
 
-                <h4 class="ui dividing header">{{ 'mango_contact_form_plugin.title.answer'|trans }}</h4>
+                <h4 class="ui dividing header">{{ 'threebrs_sylius_contact_form_plugin.title.answer'|trans }}</h4>
                 <div class="ui form">
                     {{ form_start(form, {'attr': {'class': 'ui reply form'}}) }}
                     <div class="field">
                         {{ form_row(form.message) }}
                     </div>
                     <button type="submit" class="ui blue labeled submit icon button" id="formSubmitButton">
-                        <i class="icon edit"></i> {{ 'mango_contact_form_plugin.admin.form.submitButton'|trans }}
+                        <i class="icon edit"></i> {{ 'threebrs_sylius_contact_form_plugin.admin.form.submitButton'|trans }}
                     </button>
                     {{ form_end(form) }}
                 </div>

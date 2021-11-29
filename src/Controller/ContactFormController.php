@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\Controller;
+namespace ThreeBRS\SyliusContactFormPlugin\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessage;
-use MangoSylius\SyliusContactFormPlugin\Form\Type\ContactFormMessageType;
-use MangoSylius\SyliusContactFormPlugin\Model\ContactFormSettingsProviderInterface;
 use ReCaptcha\ReCaptcha;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -22,14 +19,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
+use ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageType;
+use ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProviderInterface;
+use Twig\Environment;
 
 class ContactFormController
 {
     /** @var ContactFormSettingsProviderInterface */
     private $contactFormSettings;
-    /** @var EngineInterface */
+    /** @var Environment */
     private $templatingEngine;
     /** @var TranslatorInterface */
     private $translator;
@@ -54,7 +54,7 @@ class ContactFormController
 
     public function __construct(
         ContactFormSettingsProviderInterface $contactFormSettings,
-        EngineInterface $templatingEngine,
+        Environment $templatingEngine,
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         SenderInterface $mailer,
@@ -105,9 +105,9 @@ class ContactFormController
         if ($form->isSubmitted()) {
             if ($this->recaptchaPublic !== null && $this->recaptchaSecret !== null && $this->recaptchaPublic !== '' && $this->recaptchaSecret !== 'null' && $form->isValid()) {
                 $recaptcha = new ReCaptcha($this->recaptchaSecret);
-                $resp = $recaptcha->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
+                $resp = $recaptcha->verify((string) $request->request->get('g-recaptcha-response'), $request->getClientIp());
                 if (!$resp->isSuccess()) {
-                    $form->addError(new FormError($this->translator->trans('mango_contact_form_plugin.error.recaptcha')));
+                    $form->addError(new FormError($this->translator->trans('threebrs_sylius_contact_form_plugin.error.recaptcha')));
                 }
             }
 
@@ -126,20 +126,20 @@ class ContactFormController
 
                 $contactEmail = $channel->getContactEmail();
                 if ($contactEmail !== null && $this->contactFormSettings->isSendManager() !== false) {
-                    $this->mailer->send('mango_sylius_contact_form_admin_notice_mail', [$contactEmail], ['contact' => $contactFormMessage]);
+                    $this->mailer->send('threebrs_sylius_contact_form_admin_notice_email', [$contactEmail], ['contact' => $contactFormMessage]);
                 }
                 if ($this->contactFormSettings->isSendCustomer() !== false) {
-                    $this->mailer->send('mango_sylius_contact_form_contact_form_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessage]);
+                    $this->mailer->send('threebrs_sylius_contact_form_contact_form_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessage]);
                 }
 
-                $this->flashBag->add('success', $this->translator->trans('mango_contact_form_plugin.success'));
+                $this->flashBag->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
                 return new RedirectResponse($this->router->generate('sylius_shop_contact_request'));
             }
-            $this->flashBag->add('error', $this->translator->trans('mango_contact_form_plugin.error.form'));
+            $this->flashBag->add('error', $this->translator->trans('threebrs_sylius_contact_form_plugin.error.form'));
         }
 
-        return new Response($this->templatingEngine->render('@MangoSyliusContactFormPlugin/Shop/contactPage.html.twig', [
+        return new Response($this->templatingEngine->render('@ThreeBRSSyliusContactFormPlugin/Shop/contactPage.html.twig', [
             'form' => $form->createView(),
             'key' => $this->recaptchaPublic,
         ]));

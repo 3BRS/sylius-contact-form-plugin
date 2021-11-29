@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\DependencyInjection;
+namespace ThreeBRS\SyliusContactFormPlugin\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -10,16 +10,16 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('mango_sylius_contact_form_plugin');
+        $treeBuilder = new TreeBuilder('three_brs_sylius_contact_form');
         if (\method_exists($treeBuilder, 'getRootNode')) {
             $rootNode = $treeBuilder->getRootNode();
         } else {
             // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->root('mango_sylius_contact_form_plugin');
+            $rootNode = $treeBuilder->root('three_brs_sylius_contact_form');
         }
 
         $rootNode

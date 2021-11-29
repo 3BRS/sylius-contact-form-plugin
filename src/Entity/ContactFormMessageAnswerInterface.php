@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\Entity;
+namespace ThreeBRS\SyliusContactFormPlugin\Entity;
 
 use Sylius\Component\Core\Model\AdminUserInterface;
 

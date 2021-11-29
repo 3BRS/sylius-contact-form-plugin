@@ -1,5 +1,5 @@
 imports:
-  - { resource: '@MangoSyliusContactFormPlugin/Resources/config/packages/resources.yml' }
-  - { resource: '@MangoSyliusContactFormPlugin/Resources/config/packages/emails.yml' }
-  - { resource: '@MangoSyliusContactFormPlugin/Resources/config/packages/grid.yml' }
-  - { resource: '@MangoSyliusContactFormPlugin/Resources/config/packages/mango_sylius_contact_form.yml' }
+  - { resource: '@ThreeBRSSyliusContactFormPlugin/Resources/config/packages/resources.yml' }
+  - { resource: '@ThreeBRSSyliusContactFormPlugin/Resources/config/packages/emails.yml' }
+  - { resource: '@ThreeBRSSyliusContactFormPlugin/Resources/config/packages/grid.yml' }
+  - { resource: '@ThreeBRSSyliusContactFormPlugin/Resources/config/packages/three_brs_sylius_contact_form.yml' }

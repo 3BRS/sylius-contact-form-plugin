@@ -1,4 +1,4 @@
-mango_contact_form_plugin:
+threebrs_sylius_contact_form_plugin:
   title:
     contact: 'Contact form'
     answer: 'Answer message'

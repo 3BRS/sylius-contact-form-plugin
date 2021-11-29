@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\DependencyInjection;
+namespace ThreeBRS\SyliusContactFormPlugin\DependencyInjection;
 
-use MangoSylius\SyliusContactFormPlugin\Model\ContactFormSettingsProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider;
 
-class MangoSyliusContactFormExtension extends Extension
+class ThreeBRSSyliusContactFormExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {

@@ -1,13 +1,13 @@
 sylius_resource:
   resources:
-    mango_contact_form_plugin.message:
+    threebrs_sylius_contact_form_plugin.message:
       classes:
-        model: MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessage
-        form: MangoSylius\SyliusContactFormPlugin\Form\Type\ContactFormType
-        repository: MangoSylius\SyliusContactFormPlugin\Repository\ContactFormMessageRepository
+        model: ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage
+        form: ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormType
+        repository: ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepository
 
-    mango_contact_form_plugin.answer:
+    threebrs_sylius_contact_form_plugin.answer:
       classes:
-        model: MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessageAnswer
-        form: MangoSylius\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswer
-        repository: MangoSylius\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepository
+        model: ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageAnswer
+        form: ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswer
+        repository: ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepository

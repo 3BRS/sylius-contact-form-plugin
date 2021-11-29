@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\Entity;
+namespace ThreeBRS\SyliusContactFormPlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\AdminUserInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="mangoweb_contact_form_message_answer")
+ * @ORM\Table(name="threebrs_sylius_contact_form_message_answer")
  */
 class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageAnswerInterface
 {
@@ -42,7 +42,7 @@ class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageA
 
     /**
      * @var ContactFormMessageInterface|null
-     * @ORM\ManyToOne(targetEntity="MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessageInterface")
+     * @ORM\ManyToOne(targetEntity="ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageInterface")
      */
     protected $contactFormMessage;
 

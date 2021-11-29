@@ -2,32 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\MangoSylius\SyliusContactFormPlugin\Behat\Context\Setup;
+namespace Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
-use MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessage;
 use Sylius\Component\Core\Model\Customer;
-use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
+use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
 
 final class MessageContext implements Context
 {
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private $entityManager;
-    /**
-     * @var CustomerRepositoryInterface
-     */
-    private $customerRepositoryInterface;
-
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        CustomerRepositoryInterface $customerRepositoryInterface
+        EntityManagerInterface $entityManager
     ) {
         $this->entityManager = $entityManager;
-        $this->customerRepositoryInterface = $customerRepositoryInterface;
     }
 
     /**
@@ -42,6 +32,7 @@ final class MessageContext implements Context
         $message->setCreatedAt(new \DateTime());
         $message->setMessage('message');
         $message->setCustomer($customer);
+
         $this->entityManager->persist($message);
         $this->entityManager->flush();
     }

@@ -6,14 +6,14 @@
         <div class="divider"> / </div>
         <a href="{{ path('sylius_shop_account_dashboard') }}" class="section">{{ 'sylius.ui.my_account'|trans }}</a>
         <div class="divider"> / </div>
-        <div class="active section">{{ 'mango_contact_form_plugin.title.customer.index'|trans }}</div>
+        <div class="active section">{{ 'threebrs_sylius_contact_form_plugin.title.customer.index'|trans }}</div>
     </div>
 {% endblock %}
 
 {% block subcontent %}
     <h1 class="ui header">
-        {{ 'mango_contact_form_plugin.title.customer.index'|trans }}
-        <div class="sub header">{{ 'mango_contact_form_plugin.ui.subtitle'|trans }}</div>
+        {{ 'threebrs_sylius_contact_form_plugin.title.customer.index'|trans }}
+        <div class="sub header">{{ 'threebrs_sylius_contact_form_plugin.ui.subtitle'|trans }}</div>
     </h1>
 
     {{ sylius_grid_render(resources, '@SyliusShop/Grid/_default.html.twig') }}

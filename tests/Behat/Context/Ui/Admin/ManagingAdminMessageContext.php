@@ -2,46 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Tests\MangoSylius\SyliusContactFormPlugin\Behat\Context\Ui\Admin;
+namespace Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
-use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
-use Tests\MangoSylius\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface;
-use Webmozart\Assert\Assert;
+use Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface;
+use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageInterface;
+use ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepository;
 
 final class ManagingAdminMessageContext implements Context
 {
-    /**
-     * @var ShowPageInterface
-     */
+    /** @var ShowPageInterface */
     private $showPage;
-    /**
-     * @var NotificationCheckerInterface
-     */
+    /** @var NotificationCheckerInterface */
     private $notificationChecker;
-    /**
-     * @var EmailCheckerInterface
-     */
-    private $emailChecker;
+    /** @var ContactFormMessageRepository */
+    private $contactFormMessageRepository;
 
     public function __construct(
         ShowPageInterface $showPage,
         NotificationCheckerInterface $notificationChecker,
-        EmailCheckerInterface $emailChecker
+        ContactFormMessageRepository $contactFormMessageRepository
     ) {
         $this->showPage = $showPage;
         $this->notificationChecker = $notificationChecker;
-        $this->emailChecker = $emailChecker;
+        $this->contactFormMessageRepository = $contactFormMessageRepository;
     }
 
     /**
-     * @When I view the summary of the message :arg1
+     * @When I view the summary of the message
      */
-    public function iViewTheSummaryOfTheMessage(int $arg1)
+    public function iViewTheSummaryOfTheMessage()
     {
-        $this->showPage->open(['id' => $arg1]);
+        $message = $this->contactFormMessageRepository->createQueryBuilder('o')
+            ->orderBy('o.createdAt', 'desc')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+
+        assert($message instanceof ContactFormMessageInterface);
+
+        $this->showPage->open(['id' => $message->getId()]);
     }
 
     /**
@@ -78,5 +80,4 @@ final class ManagingAdminMessageContext implements Context
     {
         $this->showPage->showMessage();
     }
-
 }

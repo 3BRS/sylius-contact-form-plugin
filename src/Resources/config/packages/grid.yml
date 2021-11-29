@@ -1,34 +1,34 @@
 sylius_grid:
   grids:
-    mango_sylius_admin_contact_message:
+    threebrs_sylius_admin_contact_message:
       driver:
         name: doctrine/orm
         options:
-          class: MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessage
+          class: ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage
       limits: [10, 25, 50, 100]
       fields:
         createdAt:
           type: datetime
-          label: mango_contact_form_plugin.label.date
+          label: threebrs_sylius_contact_form_plugin.label.date
           sortable: ~
           options:
             format: d-m-Y H:i:s
         customerName:
           type: string
           sortable: ~
-          label: mango_contact_form_plugin.label.name
+          label: threebrs_sylius_contact_form_plugin.label.name
         email:
           type: string
           sortable: ~
-          label: mango_contact_form_plugin.label.email
+          label: threebrs_sylius_contact_form_plugin.label.email
         phone:
           type: string
-          label: mango_contact_form_plugin.label.phone
+          label: threebrs_sylius_contact_form_plugin.label.phone
         message:
           type: twig
-          label: mango_contact_form_plugin.label.message
+          label: threebrs_sylius_contact_form_plugin.label.message
           options:
-            template: '@MangoSyliusContactFormPlugin/Admin/Grid/message.html.twig'
+            template: '@ThreeBRSSyliusContactFormPlugin/Admin/Grid/message.html.twig'
       sorting:
         createdAt: desc
       filters:
@@ -40,18 +40,18 @@ sylius_grid:
         item:
           show_message:
             type: show
-            label: mango_contact_form_plugin.ui.show_message
+            label: threebrs_sylius_contact_form_plugin.ui.show_message
             options:
               link:
-                route: mango_sylius_admin_contact_show
+                route: threebrs_sylius_admin_contact_show
                 parameters:
                   id: resource.id
 
-    mango_sylius_account_contact_message:
+    threebrs_sylius_account_contact_message:
       driver:
         name: doctrine/orm
         options:
-          class: MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessage
+          class: ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage
           repository:
             method: findAllByCustomerId
             arguments: ['expr:service("sylius.context.customer").getCustomer().getId()']
@@ -59,24 +59,24 @@ sylius_grid:
       fields:
         createdAt:
           type: datetime
-          label: mango_contact_form_plugin.label.date
+          label: threebrs_sylius_contact_form_plugin.label.date
           sortable: ~
           options:
             format: d-m-Y H:i:s
         message:
           type: twig
-          label: mango_contact_form_plugin.label.message
+          label: threebrs_sylius_contact_form_plugin.label.message
           options:
-            template: '@MangoSyliusContactFormPlugin/Admin/Grid/message.html.twig'
+            template: '@ThreeBRSSyliusContactFormPlugin/Admin/Grid/message.html.twig'
       sorting:
         createdAt: desc
       actions:
         item:
           show_message:
             type: show
-            label: mango_contact_form_plugin.ui.show_message
+            label: threebrs_sylius_contact_form_plugin.ui.show_message
             options:
               link:
-                route: mango_sylius_contact_form_shop_account_message_show
+                route: threebrs_sylius_contact_form_shop_account_message_show
                 parameters:
                   id: resource.id

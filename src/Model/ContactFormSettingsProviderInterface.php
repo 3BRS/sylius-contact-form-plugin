@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\Model;
+namespace ThreeBRS\SyliusContactFormPlugin\Model;
 
 interface ContactFormSettingsProviderInterface
 {
+    /**
+     * @param mixed[] $config
+     */
     public function __construct(array $config);
 
     public function isSendCustomer(): bool;

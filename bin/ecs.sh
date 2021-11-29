@@ -8,4 +8,4 @@ cd "$(dirname "$DIR")"
 
 set -x
 
-vendor/bin/ecs check src "$@"
+vendor/bin/ecs check src tests "$@"

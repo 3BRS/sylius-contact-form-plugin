@@ -1,2 +1,2 @@
-mango_sylius_contact_form:
-    resource: "@MangoSyliusContactFormPlugin/Resources/config/routing.yml"
+threebrs_sylius_contact_form_plugin:
+  resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/routing.yml"

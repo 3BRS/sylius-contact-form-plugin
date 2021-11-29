@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\Controller;
+namespace ThreeBRS\SyliusContactFormPlugin\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessage;
-use MangoSylius\SyliusContactFormPlugin\Entity\ContactFormMessageAnswer;
-use MangoSylius\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType;
-use MangoSylius\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepository;
-use MangoSylius\SyliusContactFormPlugin\Repository\ContactFormMessageRepository;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -21,12 +16,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
+use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageAnswer;
+use ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType;
+use ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepository;
+use ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepository;
+use Twig\Environment;
 
 class ContactFormAccountController
 {
-    /** @var EngineInterface */
+    /** @var Environment */
     private $templatingEngine;
     /** @var TranslatorInterface */
     private $translator;
@@ -48,7 +48,7 @@ class ContactFormAccountController
     private $token;
 
     public function __construct(
-        EngineInterface $templatingEngine,
+        Environment $templatingEngine,
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         RouterInterface $router,
@@ -85,7 +85,7 @@ class ContactFormAccountController
         assert($contactFormMessage instanceof ContactFormMessage);
 
         if ($contactFormMessage->getCustomer() !== null && $customer->getId() !== $contactFormMessage->getCustomer()->getId()) {
-            return new RedirectResponse($this->router->generate('mango_sylius_contact_form_shop_account_message_index'));
+            return new RedirectResponse($this->router->generate('threebrs_sylius_contact_form_shop_account_message_index'));
         }
 
         $contactFormMessageAnswer = new ContactFormMessageAnswer();
@@ -105,12 +105,12 @@ class ContactFormAccountController
             $channel = $this->channelContext->getChannel();
 
             assert($channel instanceof ChannelInterface);
-            $this->flashBag->add('success', $this->translator->trans('mango_contact_form_plugin.success'));
+            $this->flashBag->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
-            return new RedirectResponse($this->router->generate('mango_sylius_contact_form_shop_account_message_show', ['id' => $id]));
+            return new RedirectResponse($this->router->generate('threebrs_sylius_contact_form_shop_account_message_show', ['id' => $id]));
         }
 
-        return new Response($this->templatingEngine->render('@MangoSyliusContactFormPlugin/Shop/Account/show.html.twig', [
+        return new Response($this->templatingEngine->render('@ThreeBRSSyliusContactFormPlugin/Shop/Account/show.html.twig', [
             'message' => $contactFormMessage,
             'answers' => $this->contactFormMessageAnswerRepository->findBy(['contactFormMessage' => $id]),
             'form' => $form->createView(),

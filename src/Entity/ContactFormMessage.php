@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\SyliusContactFormPlugin\Entity;
+namespace ThreeBRS\SyliusContactFormPlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="mangoweb_contact_form")
+ * @ORM\Table(name="threebrs_sylius_contact_form")
  */
 class ContactFormMessage implements ResourceInterface, ContactFormMessageInterface
 {

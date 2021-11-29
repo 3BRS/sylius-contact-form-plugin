@@ -7,23 +7,22 @@
 		<defaults public="true"/>
 
 		<service id="sylius.behat.context.ui.admin.message_form"
-				 class="Tests\MangoSylius\SyliusContactFormPlugin\Behat\Context\Ui\Admin\ManagingAdminMessageContext">
-			<argument type="service" id="Tests\MangoSylius\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"/>
+				 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Ui\Admin\ManagingAdminMessageContext">
+			<argument type="service" id="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"/>
 			<argument type="service" id="sylius.behat.notification_checker"/>
-            <argument type="service" id="sylius.behat.email_checker"/>
+			<argument type="service" id="ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface"/>
 		</service>
 
 
-        <service id="Tests\MangoSylius\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"
-                 class="Tests\MangoSylius\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPage"
+        <service id="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"
+                 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPage"
                  parent="sylius.behat.symfony_page"
                  public="true"
         />
 
-		<service id="mango_sylius.behat.context.setup.message"
-				 class="Tests\MangoSylius\SyliusContactFormPlugin\Behat\Context\Setup\MessageContext">
+		<service id="threebrs_sylius.behat.context.setup.message"
+				 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Setup\MessageContext">
 			<argument type="service" id="doctrine.orm.entity_manager"/>
-			<argument type="service" id="sylius.repository.customer"/>
 		</service>
 
 		<service id="sylius.behat.email_checker" class="Sylius\Component\Core\Test\Services\EmailChecker">

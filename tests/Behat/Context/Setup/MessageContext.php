@@ -11,19 +11,15 @@ use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
 
 final class MessageContext implements Context
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
     public function __construct(
-        EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
     ) {
-        $this->entityManager = $entityManager;
     }
 
     /**
      * @Given there is a customer :customer that submits a contact form
      */
-    public function thereIsACustomerThatSubmitsAContactForm(Customer $customer)
+    public function thereIsACustomerThatSubmitsAContactForm(Customer $customer): void
     {
         $message = new ContactFormMessage();
         $message->setCustomerName($customer->getFullName());

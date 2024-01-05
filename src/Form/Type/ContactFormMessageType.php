@@ -15,13 +15,9 @@ use ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProviderInterface;
 
 class ContactFormMessageType extends AbstractType
 {
-    /** @var ContactFormSettingsProviderInterface */
-    private $contactFormSettings;
-
     public function __construct(
-        ContactFormSettingsProviderInterface $contactFormSettings
+        private ContactFormSettingsProviderInterface $contactFormSettings,
     ) {
-        $this->contactFormSettings = $contactFormSettings;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -40,9 +36,7 @@ class ContactFormMessageType extends AbstractType
             $builder
                 ->add('customerName', TextType::class, [
                     'label' => 'threebrs_sylius_contact_form_plugin.customerName',
-                    'constraints' => [
-                        new NotBlank(),
-                    ],
+                    'constraints' => [new NotBlank()],
                     'required' => true,
                 ]);
         } else {
@@ -62,9 +56,7 @@ class ContactFormMessageType extends AbstractType
             $builder
                 ->add('phone', TelType::class, [
                     'label' => 'threebrs_sylius_contact_form_plugin.phone',
-                    'constraints' => [
-                        new NotBlank(),
-                    ],
+                    'constraints' => [new NotBlank()],
                     'required' => true,
                 ]);
         } else {

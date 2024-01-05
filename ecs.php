@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
-use PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
+use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import('ecs_sylius.php');
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests/Behat', __DIR__ . '/ecs.php']);
 
-    $containerConfigurator->parameters()->set(Option::SKIP, [
-		__DIR__ . '/tests/Application/var/',
-        VisibilityRequiredFixer::class => ['*Spec.php',],
+    $ecsConfig->import('vendor/sylius-labs/coding-standard/ecs.php');
+    $ecsConfig->rule(StandaloneLineConstructorParamFixer::class);
+    $ecsConfig->rule(LineLengthFixer::class);
+
+    $ecsConfig->skip([
+        __DIR__ . '/tests/Application/var/',
+        VisibilityRequiredFixer::class => ['*Spec.php'],
     ]);
-
-    $containerConfigurator->services()->set(BinaryOperatorSpacesFixer::class)->call('configure', [[]]);
 };

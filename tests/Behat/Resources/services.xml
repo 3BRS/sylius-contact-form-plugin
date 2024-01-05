@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		   xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-	<services>
-		<defaults public="true"/>
+    <services>
+        <defaults public="true"/>
 
-		<service id="sylius.behat.context.ui.admin.message_form"
-				 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Ui\Admin\ManagingAdminMessageContext">
-			<argument type="service" id="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"/>
-			<argument type="service" id="sylius.behat.notification_checker"/>
-			<argument type="service" id="ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface"/>
-		</service>
+        <service id="sylius.behat.context.ui.admin.message_form"
+                 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Ui\Admin\ManagingAdminMessageContext">
+            <argument type="service" id="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"/>
+            <argument type="service" id="sylius.behat.notification_checker"/>
+            <argument type="service" id="ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface"/>
+        </service>
 
 
         <service id="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"
@@ -20,13 +20,13 @@
                  public="true"
         />
 
-		<service id="threebrs_sylius.behat.context.setup.message"
-				 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Setup\MessageContext">
-			<argument type="service" id="doctrine.orm.entity_manager"/>
-		</service>
+        <service id="threebrs_sylius.behat.context.setup.message"
+                 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Setup\MessageContext">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
 
-		<service id="sylius.behat.email_checker" class="Sylius\Component\Core\Test\Services\EmailChecker">
-			<argument>%kernel.cache_dir%/spool</argument>
-		</service>
-	</services>
+        <service id="sylius.behat.email_checker" class="Sylius\Component\Core\Test\Services\EmailChecker">
+            <argument>%kernel.cache_dir%/spool</argument>
+        </service>
+    </services>
 </container>

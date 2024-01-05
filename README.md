@@ -3,6 +3,7 @@
         <img src="https://3brs1.fra1.cdn.digitaloceanspaces.com/3brs/logo/3BRS-logo-sylius-200.png"/>
     </a>
 </p>
+
 <h1 align="center">
 Contact Form Plugin
 <br />
@@ -40,8 +41,16 @@ Contact Form Plugin
 
 ## Installation
 
-1. Run `$ composer require 3brs/sylius-contact-form-plugin`.
-2. Register `\ThreeBRS\SyliusContactFormPlugin\ThreeBRSSyliusContactFormPlugin` in your Kernel.
+1. Run `composer require 3brs/sylius-contact-form-plugin`
+1. Add plugin class to your `config/bundles.php`
+
+   ```php
+   return [
+      ...
+      ThreeBRS\SyliusContactFormPlugin\ThreeBRSSyliusContactFormPlugin::class => ['all' => true],
+   ];
+   ```
+
 1. Add resource to `config/packages/_sylius.yaml`
 
     ```yaml
@@ -49,7 +58,7 @@ Contact Form Plugin
          ...
          - { resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/config.yml" }
     ```
-   
+
 1. Add routing to `config/_routes.yaml`
 
     ```yaml
@@ -67,9 +76,9 @@ Contact Form Plugin
     GOOGLE_RECAPTCHA_SECRET=
     ```
 
-7. Create and run doctrine database migrations.
+1. Create and run doctrine database migrations.
 
-For the guide how to use your own entity see [Sylius docs - Customizing Models](https://docs.sylius.com/en/1.10/customization/model.html)
+For the guide how to use your own entity see [Sylius docs - Customizing Models](https://docs.sylius.com/en/1.12/customization/model.html)
 
 ### Usage
 
@@ -103,20 +112,40 @@ For the guide how to use your own entity see [Sylius docs - Customizing Models](
 ### Usage
 
 - Create symlink from .env.dist to .env or create your own .env file
-- Develop your plugin in `/src`
-- See `bin/` for useful commands
+- Alter plugin in `/src`
+- See `bin/` dir for useful commands
 
 ### Testing
 
 After your changes you must ensure that the tests are still passing.
 
 ```bash
-$ composer install
-$ bin/console doctrine:schema:create -e test
-$ bin/behat.sh
-$ bin/phpstan.sh
-$ bin/ecs.sh
+composer install
+bin/console doctrine:database:create --if-not-exists --env=test
+bin/console doctrine:schema:update --complete --force --env=test
+yarn --cwd tests/Application install
+yarn --cwd tests/Application build
+
+bin/behat
+bin/phpstan.sh
+bin/ecs.sh
+vendor/bin/phpspec run
 ```
+
+### Opening Sylius with your plugin
+
+1. Install symfony CLI command: https://symfony.com/download
+    - hint: for Docker (with Ubuntu) use _Debian/Ubuntu — APT based
+      Linux_ installation steps as `root` user and without `sudo` command
+        - you may need to install `curl` first ```apt-get update && apt-get install curl --yes```
+2. Run app
+
+```bash
+(cd tests/Application && APP_ENV=test bin/console sylius:fixtures:load)
+(cd tests/Application && APP_ENV=test symfony server:start --dir=public --port=8080)
+```
+
+- change `APP_ENV` to `dev` if you need it
 
 License
 -------

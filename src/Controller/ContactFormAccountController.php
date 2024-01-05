@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -26,54 +26,22 @@ use Twig\Environment;
 
 class ContactFormAccountController
 {
-    /** @var Environment */
-    private $templatingEngine;
-    /** @var TranslatorInterface */
-    private $translator;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var RouterInterface */
-    private $router;
-    /** @var FlashBagInterface */
-    private $flashBag;
-    /** @var FormFactoryInterface */
-    private $builder;
-    /** @var ChannelContextInterface */
-    private $channelContext;
-    /** @var ContactFormMessageRepository */
-    private $contactFormMessageRepository;
-    /** @var ContactFormMessageAnswerRepository */
-    private $contactFormMessageAnswerRepository;
-    /** @var TokenStorageInterface */
-    private $token;
-
     public function __construct(
-        Environment $templatingEngine,
-        TranslatorInterface $translator,
-        EntityManagerInterface $entityManager,
-        RouterInterface $router,
-        FlashBagInterface $flashBag,
-        FormFactoryInterface $builder,
-        ChannelContextInterface $channelContext,
-        ContactFormMessageRepository $contactFormMessageRepository,
-        ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository,
-        TokenStorageInterface $tokenStorage
+        private Environment $templatingEngine,
+        private TranslatorInterface $translator,
+        private EntityManagerInterface $entityManager,
+        private RouterInterface $router,
+        private FormFactoryInterface $builder,
+        private ChannelContextInterface $channelContext,
+        private ContactFormMessageRepository $contactFormMessageRepository,
+        private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository,
+        private TokenStorageInterface $tokenStorage,
     ) {
-        $this->templatingEngine = $templatingEngine;
-        $this->translator = $translator;
-        $this->entityManager = $entityManager;
-        $this->router = $router;
-        $this->flashBag = $flashBag;
-        $this->builder = $builder;
-        $this->channelContext = $channelContext;
-        $this->contactFormMessageRepository = $contactFormMessageRepository;
-        $this->contactFormMessageAnswerRepository = $contactFormMessageAnswerRepository;
-        $this->token = $tokenStorage;
     }
 
-    public function showAccountMessageAction(Request $request, int $id): Response
+    public function showAccountMessageAction(Request $request, Session $session, int $id): Response
     {
-        $token = $this->token->getToken();
+        $token = $this->tokenStorage->getToken();
         assert($token !== null);
 
         $shopUser = $token->getUser();
@@ -84,8 +52,12 @@ class ContactFormAccountController
         $contactFormMessage = $this->contactFormMessageRepository->find($id);
         assert($contactFormMessage instanceof ContactFormMessage);
 
-        if ($contactFormMessage->getCustomer() !== null && $customer->getId() !== $contactFormMessage->getCustomer()->getId()) {
-            return new RedirectResponse($this->router->generate('threebrs_sylius_contact_form_shop_account_message_index'));
+        if ($contactFormMessage->getCustomer() !== null &&
+            $customer->getId() !== $contactFormMessage->getCustomer()->getId()
+        ) {
+            return new RedirectResponse($this->router->generate(
+                'threebrs_sylius_contact_form_shop_account_message_index',
+            ));
         }
 
         $contactFormMessageAnswer = new ContactFormMessageAnswer();
@@ -105,15 +77,26 @@ class ContactFormAccountController
             $channel = $this->channelContext->getChannel();
 
             assert($channel instanceof ChannelInterface);
-            $this->flashBag->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
+            $session->getFlashBag()->add(
+                'success',
+                $this->translator->trans('threebrs_sylius_contact_form_plugin.success'),
+            );
 
-            return new RedirectResponse($this->router->generate('threebrs_sylius_contact_form_shop_account_message_show', ['id' => $id]));
+            return new RedirectResponse($this->router->generate(
+                'threebrs_sylius_contact_form_shop_account_message_show',
+                ['id' => $id],
+            ));
         }
 
-        return new Response($this->templatingEngine->render('@ThreeBRSSyliusContactFormPlugin/Shop/Account/show.html.twig', [
-            'message' => $contactFormMessage,
-            'answers' => $this->contactFormMessageAnswerRepository->findBy(['contactFormMessage' => $id]),
-            'form' => $form->createView(),
-        ]));
+        return new Response(
+            $this->templatingEngine->render(
+                '@ThreeBRSSyliusContactFormPlugin/Shop/Account/show.html.twig',
+                [
+                    'message' => $contactFormMessage,
+                    'answers' => $this->contactFormMessageAnswerRepository->findBy(['contactFormMessage' => $id]),
+                    'form' => $form->createView(),
+                ],
+            ),
+        );
     }
 }

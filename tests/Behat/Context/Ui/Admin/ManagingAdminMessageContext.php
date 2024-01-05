@@ -7,33 +7,24 @@ namespace Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Ui\Admin;
 use Behat\Behat\Context\Context;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
+use Sylius\Component\Resource\Model\ResourceInterface;
 use Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface;
 use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageInterface;
 use ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepository;
 
 final class ManagingAdminMessageContext implements Context
 {
-    /** @var ShowPageInterface */
-    private $showPage;
-    /** @var NotificationCheckerInterface */
-    private $notificationChecker;
-    /** @var ContactFormMessageRepository */
-    private $contactFormMessageRepository;
-
     public function __construct(
-        ShowPageInterface $showPage,
-        NotificationCheckerInterface $notificationChecker,
-        ContactFormMessageRepository $contactFormMessageRepository
+        private ShowPageInterface $showPage,
+        private NotificationCheckerInterface $notificationChecker,
+        private ContactFormMessageRepository $contactFormMessageRepository,
     ) {
-        $this->showPage = $showPage;
-        $this->notificationChecker = $notificationChecker;
-        $this->contactFormMessageRepository = $contactFormMessageRepository;
     }
 
     /**
      * @When I view the summary of the message
      */
-    public function iViewTheSummaryOfTheMessage()
+    public function iViewTheSummaryOfTheMessage(): void
     {
         $message = $this->contactFormMessageRepository->createQueryBuilder('o')
             ->orderBy('o.createdAt', 'desc')
@@ -42,6 +33,7 @@ final class ManagingAdminMessageContext implements Context
             ->getSingleResult();
 
         assert($message instanceof ContactFormMessageInterface);
+        assert($message instanceof ResourceInterface);
 
         $this->showPage->open(['id' => $message->getId()]);
     }
@@ -49,7 +41,7 @@ final class ManagingAdminMessageContext implements Context
     /**
      * @When I write an answer message
      */
-    public function iWriteAnAnswerMessage()
+    public function iWriteAnAnswerMessage(): void
     {
         $this->showPage->addMessage();
     }
@@ -69,14 +61,14 @@ final class ManagingAdminMessageContext implements Context
     {
         $this->notificationChecker->checkNotification(
             'The message was successfully sent.',
-            NotificationType::success()
+            NotificationType::success(),
         );
     }
 
     /**
      * @Then I see the message created
      */
-    public function iSeeTheMessageCreated()
+    public function iSeeTheMessageCreated(): void
     {
         $this->showPage->showMessage();
     }

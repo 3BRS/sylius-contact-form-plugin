@@ -9,7 +9,9 @@ interface ContactFormSettingsProviderInterface
     /**
      * @param mixed[] $config
      */
-    public function __construct(array $config);
+    public function __construct(
+        array $config,
+    );
 
     public function isSendCustomer(): bool;
 

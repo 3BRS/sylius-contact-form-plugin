@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
+ *
  * @ORM\Table(name="threebrs_sylius_contact_form_message_answer")
  */
 class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageAnswerInterface
@@ -19,7 +20,9 @@ class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageA
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
+     *
      * @ORM\Id
+     *
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
@@ -42,12 +45,14 @@ class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageA
 
     /**
      * @var ContactFormMessageInterface|null
+     *
      * @ORM\ManyToOne(targetEntity="ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageInterface")
      */
     protected $contactFormMessage;
 
     /**
      * @var AdminUserInterface|null
+     *
      * @ORM\ManyToOne(targetEntity="Sylius\Component\Core\Model\AdminUserInterface")
      */
     protected $adminUser;

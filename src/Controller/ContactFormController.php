@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -27,64 +27,26 @@ use Twig\Environment;
 
 class ContactFormController
 {
-    /** @var ContactFormSettingsProviderInterface */
-    private $contactFormSettings;
-    /** @var Environment */
-    private $templatingEngine;
-    /** @var TranslatorInterface */
-    private $translator;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var SenderInterface */
-    private $mailer;
-    /** @var RouterInterface */
-    private $router;
-    /** @var FlashBagInterface */
-    private $flashBag;
-    /** @var FormFactoryInterface */
-    private $builder;
-    /** @var ChannelContextInterface */
-    private $channelContext;
-    /** @var TokenStorageInterface */
-    private $token;
-    /** @var string */
-    private $recaptchaPublic;
-    /** @var string */
-    private $recaptchaSecret;
-
     public function __construct(
-        ContactFormSettingsProviderInterface $contactFormSettings,
-        Environment $templatingEngine,
-        TranslatorInterface $translator,
-        EntityManagerInterface $entityManager,
-        SenderInterface $mailer,
-        RouterInterface $router,
-        FlashBagInterface $flashBag,
-        FormFactoryInterface $builder,
-        ChannelContextInterface $channelContext,
-        TokenStorageInterface $tokenStorage,
-        string $recaptchaPublic,
-        string $recaptchaSecret
+        private ContactFormSettingsProviderInterface $contactFormSettings,
+        private Environment $templatingEngine,
+        private TranslatorInterface $translator,
+        private EntityManagerInterface $entityManager,
+        private SenderInterface $mailer,
+        private RouterInterface $router,
+        private FormFactoryInterface $builder,
+        private ChannelContextInterface $channelContext,
+        private TokenStorageInterface $tokenStorage,
+        private ?string $recaptchaPublic,
+        private ?string $recaptchaSecret,
     ) {
-        $this->templatingEngine = $templatingEngine;
-        $this->translator = $translator;
-        $this->entityManager = $entityManager;
-        $this->mailer = $mailer;
-        $this->router = $router;
-        $this->flashBag = $flashBag;
-        $this->builder = $builder;
-        $this->channelContext = $channelContext;
-        $this->token = $tokenStorage;
-        $this->recaptchaPublic = $recaptchaPublic;
-        $this->recaptchaSecret = $recaptchaSecret;
-        $this->contactFormSettings = $contactFormSettings;
     }
 
-    public function requestAction(Request $request): Response
+    public function requestAction(Request $request, Session $session): Response
     {
         $contactFormMessage = new ContactFormMessage();
 
-        $token = $this->token->getToken();
+        $token = $this->tokenStorage->getToken();
         if ($token !== null) {
             $shopUser = $token->getUser();
             if ($shopUser instanceof ShopUser) {
@@ -103,11 +65,21 @@ class ContactFormController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            if ($this->recaptchaPublic !== null && $this->recaptchaSecret !== null && $this->recaptchaPublic !== '' && $this->recaptchaSecret !== 'null' && $form->isValid()) {
+            if ($this->recaptchaPublic !== null &&
+                $this->recaptchaSecret !== null &&
+                $this->recaptchaPublic !== '' &&
+                $this->recaptchaSecret !== 'null' &&
+                $form->isValid()
+            ) {
                 $recaptcha = new ReCaptcha($this->recaptchaSecret);
-                $resp = $recaptcha->verify((string) $request->request->get('g-recaptcha-response'), $request->getClientIp());
+                $resp = $recaptcha->verify(
+                    (string) $request->request->get('g-recaptcha-response'),
+                    $request->getClientIp(),
+                );
                 if (!$resp->isSuccess()) {
-                    $form->addError(new FormError($this->translator->trans('threebrs_sylius_contact_form_plugin.error.recaptcha')));
+                    $form->addError(
+                        new FormError($this->translator->trans('threebrs_sylius_contact_form_plugin.error.recaptcha')),
+                    );
                 }
             }
 
@@ -126,22 +98,41 @@ class ContactFormController
 
                 $contactEmail = $channel->getContactEmail();
                 if ($contactEmail !== null && $this->contactFormSettings->isSendManager() !== false) {
-                    $this->mailer->send('threebrs_sylius_contact_form_admin_notice_email', [$contactEmail], ['contact' => $contactFormMessage]);
+                    $this->mailer->send(
+                        'threebrs_sylius_contact_form_admin_notice_email',
+                        [$contactEmail],
+                        ['contact' => $contactFormMessage],
+                    );
                 }
                 if ($this->contactFormSettings->isSendCustomer() !== false) {
-                    $this->mailer->send('threebrs_sylius_contact_form_contact_form_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessage]);
+                    $this->mailer->send(
+                        'threebrs_sylius_contact_form_contact_form_email',
+                        [$contactFormMessage->getEmail()],
+                        ['contact' => $contactFormMessage],
+                    );
                 }
 
-                $this->flashBag->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
+                $session->getFlashBag()->add(
+                    'success',
+                    $this->translator->trans('threebrs_sylius_contact_form_plugin.success'),
+                );
 
                 return new RedirectResponse($this->router->generate('sylius_shop_contact_request'));
             }
-            $this->flashBag->add('error', $this->translator->trans('threebrs_sylius_contact_form_plugin.error.form'));
+            $session->getFlashBag()->add(
+                'error',
+                $this->translator->trans('threebrs_sylius_contact_form_plugin.error.form'),
+            );
         }
 
-        return new Response($this->templatingEngine->render('@ThreeBRSSyliusContactFormPlugin/Shop/contactPage.html.twig', [
-            'form' => $form->createView(),
-            'key' => $this->recaptchaPublic,
-        ]));
+        return new Response(
+            $this->templatingEngine->render(
+                '@ThreeBRSSyliusContactFormPlugin/Shop/contactPage.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'key' => $this->recaptchaPublic,
+                ],
+            ),
+        );
     }
 }

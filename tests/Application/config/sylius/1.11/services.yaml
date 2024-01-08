@@ -1,0 +1,5 @@
+services:
+  # workaround for shared Behat config and tests via Sylius 1.11 and 1.12
+  'sylius.behat.context.hook.mailer':
+    class: Tests\ThreeBRS\SyliusContactFormPlugin\Behat\DummyContext
+    public: true

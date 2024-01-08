@@ -3,7 +3,8 @@ default:
         ui_message_form:
             contexts:
                 - sylius.behat.context.hook.doctrine_orm
-                - sylius.behat.context.hook.mailer
+                - sylius.behat.context.hook.email_spool # Sylius 1.11, solved in tests/Application/config/sylius/1.12/services_test.yml
+                - sylius.behat.context.hook.mailer # Sylius 1.12, solved in tests/Application/config/sylius/1.11/services_test.yml
 
                 - sylius.behat.context.setup.channel
                 - sylius.behat.context.setup.currency

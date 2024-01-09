@@ -59,7 +59,7 @@ Contact Form Plugin
          - { resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/config.yml" }
     ```
 
-1. Add routing to `config/_routes.yaml`
+1. Add routing to `config/routes.yaml`
 
     ```yaml
 

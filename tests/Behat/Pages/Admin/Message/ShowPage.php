@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message;
 
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage;
+use Webmozart\Assert\Assert;
 
 final class ShowPage extends SymfonyPage implements ShowPageInterface
 {
@@ -20,15 +21,21 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
 
     public function addMessage(): void
     {
-        $this->getElement('message')->setValue('message');
+        $this->getElement('message')->setValue($this->getMessageText());
+    }
+
+    private function getMessageText(): string
+    {
+        return 'some message';
     }
 
     public function showMessage(): void
     {
-        $lastM = $this->getElement('order_message')->getText();
-        if (empty($lastM)) {
+        $lastMessage = $this->getElement('order_message')->getText();
+        if (empty($lastMessage)) {
             throw new \RuntimeException(sprintf('no message found'));
         }
+        Assert::endsWith(trim($lastMessage), trim($this->getMessageText()));
     }
 
     protected function getDefinedElements(): array

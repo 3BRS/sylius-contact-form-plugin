@@ -25,6 +25,10 @@
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
 
+        <service id="threebrs_sylius.behat.context.debug"
+                 class="\Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Setup\DebugContext">
+        </service>
+
         <service id="sylius.behat.email_checker" class="Sylius\Component\Core\Test\Services\EmailChecker">
             <argument>%kernel.cache_dir%/spool</argument>
         </service>

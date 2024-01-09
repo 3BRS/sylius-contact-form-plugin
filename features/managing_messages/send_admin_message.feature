@@ -14,6 +14,7 @@ Feature: Send message
     When I view the summary of the message
     And I write an answer message
     And I send the answer message
-    Then 1 email should be sent to "lucy@teamlucifer.com"
-    And I should be notified that the message as been created
+    Then the response status code should be 200
     And I see the message created
+    And I should be notified that the message as been created
+    And 1 email should be sent to "lucy@teamlucifer.com"

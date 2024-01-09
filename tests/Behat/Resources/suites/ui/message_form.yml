@@ -24,6 +24,7 @@ default:
                 - sylius.behat.context.setup.admin_user
                 - sylius.behat.context.setup.user
                 - threebrs_sylius.behat.context.setup.message
+                - threebrs_sylius.behat.context.debug
 
                 - sylius.behat.context.transform.address
                 - sylius.behat.context.transform.channel
@@ -57,6 +58,7 @@ default:
 
                 - sylius.behat.context.ui.admin.message_form
                 - sylius.behat.context.ui.admin.notification
+                - Behat\MinkExtension\Context\MinkContext
 
             filters:
                 tags: "@message_form && @ui && email"

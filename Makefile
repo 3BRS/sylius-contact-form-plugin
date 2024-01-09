@@ -11,6 +11,7 @@ install:
 	composer install --no-interaction --no-scripts
 
 backend:
+	APP_ENV=test tests/Application/bin/console doctrine:migrations:sync-metadata-storage --no-interaction
 	APP_ENV=test tests/Application/bin/console sylius:install --no-interaction
 	APP_ENV=test tests/Application/bin/console doctrine:schema:update --force --complete --no-interaction
 	APP_ENV=test tests/Application/bin/console sylius:fixtures:load default --no-interaction

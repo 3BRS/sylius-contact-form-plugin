@@ -11,9 +11,10 @@ install:
 	composer install --no-interaction --no-scripts
 
 backend:
+	APP_ENV=test tests/Application/bin/console doctrine:database:create --if-not-exists --no-interaction
 	APP_ENV=test tests/Application/bin/console doctrine:migrations:sync-metadata-storage --no-interaction
-	APP_ENV=test tests/Application/bin/console sylius:install --no-interaction
 	APP_ENV=test tests/Application/bin/console doctrine:schema:update --force --complete --no-interaction
+	APP_ENV=test tests/Application/bin/console sylius:install --no-interaction
 	APP_ENV=test tests/Application/bin/console sylius:fixtures:load default --no-interaction
 
 frontend:
@@ -24,7 +25,7 @@ behat:
 	APP_ENV=test bin/behat --colors --strict --no-interaction -vvv -f progress
 
 lint:
-	APP_ENV=test ./bin/symfony-lint.sh
+	APP_ENV=test bin/symfony-lint.sh
 
 init: install backend frontend
 

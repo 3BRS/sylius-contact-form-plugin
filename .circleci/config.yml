@@ -17,7 +17,7 @@ workflows:
                   matrix:
                       parameters:
                           sylius_version: [ "1.11" ]
-                          php_version: [ "8.1", "8.2" ]
+                          php_version: [ "8.1", "8.2", "8.3" ]
                           symfony_version: [ "5.4" ]
     sylius1.12-php8.0:
         jobs:
@@ -35,7 +35,7 @@ workflows:
                     matrix:
                         parameters:
                             sylius_version: [ "1.12" ]
-                            php_version: [ "8.1", "8.2" ]
+                            php_version: [ "8.1", "8.2", "8.3" ]
                             symfony_version: [ "5.4", "6.0", "6.1", "6.2", "6.3", "6.4" ]
 
 jobs:
@@ -65,7 +65,7 @@ jobs:
             -   run: curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
             -   run: apt-get update
                 # netcat to get 'nc' command for waiting for database
-            -   run: apt-get install -y nodejs yarn mariadb-client netcat
+            -   run: apt-get install -y nodejs yarn mariadb-client netcat-traditional
             -   run: composer self-update
 
             # Sylius & Symfony in current matrix versions

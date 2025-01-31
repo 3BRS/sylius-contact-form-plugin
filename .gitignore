@@ -1,6 +1,7 @@
 /.idea
 /vendor/
 /composer.lock
+/symfony.lock
 .envrc
 /etc
 /etc/build/*
@@ -17,6 +18,17 @@ yarn-error.log
 /deploy/
 /docker/
 
-docker-compose.override.yaml
+compose.override.yaml
 docker-compose.override.dist.yaml
-docker-compose.yaml
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

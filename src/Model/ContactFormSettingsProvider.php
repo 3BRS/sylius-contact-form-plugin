@@ -8,19 +8,22 @@ class ContactFormSettingsProvider implements ContactFormSettingsProviderInterfac
 {
     /** @var bool */
     private $nameRequired;
+
     /** @var bool */
     private $phoneRequired;
+
     /** @var bool */
     private $sendManager;
+
     /** @var bool */
     private $sendCustomer;
 
     public function __construct(array $config)
     {
-        $this->nameRequired = $config['name_required'];
-        $this->phoneRequired = $config['phone_required'];
-        $this->sendManager = $config['send_manager_mail'];
-        $this->sendCustomer = $config['send_customer_mail'];
+        $this->nameRequired = (bool) $config['name_required'];
+        $this->phoneRequired = (bool) $config['phone_required'];
+        $this->sendManager = (bool) $config['send_manager_mail'];
+        $this->sendCustomer = (bool) $config['send_customer_mail'];
     }
 
     public function isSendCustomer(): bool

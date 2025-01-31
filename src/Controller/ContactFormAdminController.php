@@ -24,49 +24,8 @@ use Twig\Environment;
 
 class ContactFormAdminController
 {
-    /** @var Environment */
-    private $templatingEngine;
-    /** @var TranslatorInterface */
-    private $translator;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var SenderInterface */
-    private $mailer;
-    /** @var RouterInterface */
-    private $router;
-    /** @var FlashBagInterface */
-    private $flashBag;
-    /** @var FormFactoryInterface */
-    private $builder;
-    /** @var ContactFormMessageRepository */
-    private $contactFormMessageRepository;
-    /** @var ContactFormMessageAnswerRepository */
-    private $contactFormMessageAnswerRepository;
-    /** @var TokenStorageInterface */
-    private $token;
-
-    public function __construct(
-        Environment $templatingEngine,
-        TranslatorInterface $translator,
-        EntityManagerInterface $entityManager,
-        SenderInterface $mailer,
-        RouterInterface $router,
-        FlashBagInterface $flashBag,
-        FormFactoryInterface $builder,
-        ContactFormMessageRepository $contactFormMessageRepository,
-        ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository,
-        TokenStorageInterface $tokenStorage
-    ) {
-        $this->templatingEngine = $templatingEngine;
-        $this->translator = $translator;
-        $this->entityManager = $entityManager;
-        $this->mailer = $mailer;
-        $this->router = $router;
-        $this->flashBag = $flashBag;
-        $this->builder = $builder;
-        $this->contactFormMessageRepository = $contactFormMessageRepository;
-        $this->contactFormMessageAnswerRepository = $contactFormMessageAnswerRepository;
-        $this->token = $tokenStorage;
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $token)
+    {
     }
 
     public function showMessageAction(Request $request, int $id): Response

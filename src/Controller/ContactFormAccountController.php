@@ -26,49 +26,8 @@ use Twig\Environment;
 
 class ContactFormAccountController
 {
-    /** @var Environment */
-    private $templatingEngine;
-    /** @var TranslatorInterface */
-    private $translator;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var RouterInterface */
-    private $router;
-    /** @var FlashBagInterface */
-    private $flashBag;
-    /** @var FormFactoryInterface */
-    private $builder;
-    /** @var ChannelContextInterface */
-    private $channelContext;
-    /** @var ContactFormMessageRepository */
-    private $contactFormMessageRepository;
-    /** @var ContactFormMessageAnswerRepository */
-    private $contactFormMessageAnswerRepository;
-    /** @var TokenStorageInterface */
-    private $token;
-
-    public function __construct(
-        Environment $templatingEngine,
-        TranslatorInterface $translator,
-        EntityManagerInterface $entityManager,
-        RouterInterface $router,
-        FlashBagInterface $flashBag,
-        FormFactoryInterface $builder,
-        ChannelContextInterface $channelContext,
-        ContactFormMessageRepository $contactFormMessageRepository,
-        ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository,
-        TokenStorageInterface $tokenStorage
-    ) {
-        $this->templatingEngine = $templatingEngine;
-        $this->translator = $translator;
-        $this->entityManager = $entityManager;
-        $this->router = $router;
-        $this->flashBag = $flashBag;
-        $this->builder = $builder;
-        $this->channelContext = $channelContext;
-        $this->contactFormMessageRepository = $contactFormMessageRepository;
-        $this->contactFormMessageAnswerRepository = $contactFormMessageAnswerRepository;
-        $this->token = $tokenStorage;
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $token)
+    {
     }
 
     public function showAccountMessageAction(Request $request, int $id): Response

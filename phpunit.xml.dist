@@ -16,5 +16,17 @@
     <php>
         <server name="KERNEL_CLASS_PATH" value="/tests/Application/AppKernel.php" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
+
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="dev"/>
+        <env name="APP_SECRET" value="e1095c7366122a383edf4e168730a6d5"/>
+        <!-- ###- symfony/framework-bundle ### -->
+
+        <!-- ###+ google/recaptcha ### -->
+        <!-- To use Google Recaptcha, you must register a site on Recaptcha's admin panel: -->
+        <!-- https://www.google.com/recaptcha/admin -->
+        <env name="GOOGLE_RECAPTCHA_SITE_KEY" value=""/>
+        <env name="GOOGLE_RECAPTCHA_SECRET" value=""/>
+        <!-- ###- google/recaptcha ### -->
     </php>
 </phpunit>

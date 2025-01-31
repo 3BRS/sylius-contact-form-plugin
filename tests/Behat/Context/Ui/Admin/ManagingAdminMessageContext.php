@@ -13,21 +13,8 @@ use ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepository;
 
 final class ManagingAdminMessageContext implements Context
 {
-    /** @var ShowPageInterface */
-    private $showPage;
-    /** @var NotificationCheckerInterface */
-    private $notificationChecker;
-    /** @var ContactFormMessageRepository */
-    private $contactFormMessageRepository;
-
-    public function __construct(
-        ShowPageInterface $showPage,
-        NotificationCheckerInterface $notificationChecker,
-        ContactFormMessageRepository $contactFormMessageRepository
-    ) {
-        $this->showPage = $showPage;
-        $this->notificationChecker = $notificationChecker;
-        $this->contactFormMessageRepository = $contactFormMessageRepository;
+    public function __construct(private ShowPageInterface $showPage, private NotificationCheckerInterface $notificationChecker, private ContactFormMessageRepository $contactFormMessageRepository)
+    {
     }
 
     /**

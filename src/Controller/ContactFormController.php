@@ -27,57 +27,8 @@ use Twig\Environment;
 
 class ContactFormController
 {
-    /** @var ContactFormSettingsProviderInterface */
-    private $contactFormSettings;
-    /** @var Environment */
-    private $templatingEngine;
-    /** @var TranslatorInterface */
-    private $translator;
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /** @var SenderInterface */
-    private $mailer;
-    /** @var RouterInterface */
-    private $router;
-    /** @var FlashBagInterface */
-    private $flashBag;
-    /** @var FormFactoryInterface */
-    private $builder;
-    /** @var ChannelContextInterface */
-    private $channelContext;
-    /** @var TokenStorageInterface */
-    private $token;
-    /** @var string */
-    private $recaptchaPublic;
-    /** @var string */
-    private $recaptchaSecret;
-
-    public function __construct(
-        ContactFormSettingsProviderInterface $contactFormSettings,
-        Environment $templatingEngine,
-        TranslatorInterface $translator,
-        EntityManagerInterface $entityManager,
-        SenderInterface $mailer,
-        RouterInterface $router,
-        FlashBagInterface $flashBag,
-        FormFactoryInterface $builder,
-        ChannelContextInterface $channelContext,
-        TokenStorageInterface $tokenStorage,
-        string $recaptchaPublic,
-        string $recaptchaSecret
-    ) {
-        $this->templatingEngine = $templatingEngine;
-        $this->translator = $translator;
-        $this->entityManager = $entityManager;
-        $this->mailer = $mailer;
-        $this->router = $router;
-        $this->flashBag = $flashBag;
-        $this->builder = $builder;
-        $this->channelContext = $channelContext;
-        $this->token = $tokenStorage;
-        $this->recaptchaPublic = $recaptchaPublic;
-        $this->recaptchaSecret = $recaptchaSecret;
-        $this->contactFormSettings = $contactFormSettings;
+    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $token, private string $recaptchaPublic, private string $recaptchaSecret)
+    {
     }
 
     public function requestAction(Request $request): Response

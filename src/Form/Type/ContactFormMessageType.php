@@ -15,13 +15,8 @@ use ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProviderInterface;
 
 class ContactFormMessageType extends AbstractType
 {
-    /** @var ContactFormSettingsProviderInterface */
-    private $contactFormSettings;
-
-    public function __construct(
-        ContactFormSettingsProviderInterface $contactFormSettings
-    ) {
-        $this->contactFormSettings = $contactFormSettings;
+    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings)
+    {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

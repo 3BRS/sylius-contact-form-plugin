@@ -26,13 +26,13 @@ use Twig\Environment;
 
 class ContactFormAccountController
 {
-    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $token)
     {
     }
 
     public function showAccountMessageAction(Request $request, int $id): Response
     {
-        $token = $this->tokenStorage->getToken();
+        $token = $this->token->getToken();
         assert($token !== null);
 
         $shopUser = $token->getUser();

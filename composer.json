@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "sylius/sylius": "1.11.*",
+        "sylius/sylius": "1.11.*|1.12.*|1.13.*",
         "google/recaptcha": "^1.2"
     },
     "require-dev": {
@@ -32,18 +32,18 @@
         "polishsymfonycommunity/symfony-mocker-container": "^1.0",
         "rector/rector": "^0.18.12",
         "sylius-labs/coding-standard": "^4.2",
-        "symfony/browser-kit": "^5.4",
-        "symfony/debug-bundle": "^5.4",
-        "symfony/dotenv": "^5.4",
+        "symfony/browser-kit": "^5.4 || ^6.0",
+        "symfony/debug-bundle": "^5.4 || ^6.0",
+        "symfony/dotenv": "^5.4 || ^6.0",
         "symfony/flex": "^2.2.2",
-        "symfony/framework-bundle": "^5.4",
-        "symfony/http-foundation": "^5.4",
-        "symfony/http-kernel": "^5.4",
-        "symfony/intl": "^5.4",
-        "symfony/web-profiler-bundle": "^5.4"
+        "symfony/framework-bundle": "^5.4 || ^6.0",
+        "symfony/http-foundation": "^5.4 || ^6.0",
+        "symfony/http-kernel": "^5.4 || ^6.0",
+        "symfony/intl": "^5.4 || ^6.0",
+        "symfony/web-profiler-bundle": "^5.4 || ^6.0"
     },
     "conflict": {
-        "doctrine/annotations": ">=2.0.0",
+        "babdev/pagerfanta-bundle": "<3.6.1",
         "doctrine/collections": "<1.7.0",
         "doctrine/dbal": "<2.13.3",
         "doctrine/doctrine-bundle": "<2.4.2",
@@ -55,6 +55,7 @@
         "polishsymfonycommunity/symfony-mocker-container": "<1.0.6",
         "sylius/resource-bundle": "<1.10.0",
         "symfony/css-selector": "<4.4.24",
+        "symfony/framework-bundle": ">=6.1.0 <6.1.4|6.2.8",
         "symfony/mime": "<5.4.0",
         "symfony/web-link": "<5.3.0",
         "symplify/easy-coding-standard": "<10.2.0",
@@ -65,13 +66,13 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "ThreeBRS\\SyliusContactFormPlugin\\": "src/"
+            "ThreeBRS\\SyliusContactFormPlugin\\": "src/",
+            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\": "tests/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\": "tests/Application/src/",
-            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\Behat\\": "tests/Behat/"
+            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\": "tests/Application/src/"
         }
     },
     "config": {

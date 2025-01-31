@@ -24,7 +24,7 @@ use Twig\Environment;
 
 class ContactFormAdminController
 {
-    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $token)
     {
     }
 
@@ -43,7 +43,7 @@ class ContactFormAdminController
             $contactFormMessage = $this->contactFormMessageRepository->find($id);
             assert($contactFormMessage instanceof ContactFormMessage);
 
-            $token = $this->tokenStorage->getToken();
+            $token = $this->token->getToken();
             assert($token && $token->getUser() instanceof AdminUser);
 
             $adminUser = $token->getUser();

@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-use Tests\ThreeBRS\SyliusContactFormPlugin\Application\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Tests\ThreeBRS\SyliusContactFormPlugin\Kernel;
 use Symfony\Component\Debug\Debug;
 
 set_time_limit(0);

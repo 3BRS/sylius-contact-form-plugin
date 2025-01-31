@@ -1,7 +1,7 @@
 threebrs_sylius_admin_contact_show:
   path: contact/show/{id}
   defaults:
-    _controller: ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAdminController:showMessageAction
+    _controller: ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAdminController::showMessageAction
 
 threebrs_sylius_admin_contact_message:
   resource: |

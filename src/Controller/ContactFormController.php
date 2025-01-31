@@ -27,7 +27,7 @@ use Twig\Environment;
 
 class ContactFormController
 {
-    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret)
+    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $token, private string $recaptchaPublic, private string $recaptchaSecret)
     {
     }
 
@@ -35,7 +35,7 @@ class ContactFormController
     {
         $contactFormMessage = new ContactFormMessage();
 
-        $token = $this->tokenStorage->getToken();
+        $token = $this->token->getToken();
         if ($token !== null) {
             $shopUser = $token->getUser();
             if ($shopUser instanceof ShopUser) {
@@ -54,7 +54,7 @@ class ContactFormController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            if ($this->recaptchaPublic !== '' && $this->recaptchaSecret !== 'null' && $form->isValid()) {
+            if ($this->recaptchaPublic !== null && $this->recaptchaSecret !== null && $this->recaptchaPublic !== '' && $this->recaptchaSecret !== 'null' && $form->isValid()) {
                 $recaptcha = new ReCaptcha($this->recaptchaSecret);
                 $resp = $recaptcha->verify((string) $request->request->get('g-recaptcha-response'), $request->getClientIp());
                 if (!$resp->isSuccess()) {

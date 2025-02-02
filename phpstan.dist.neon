@@ -4,9 +4,9 @@ includes:
 
 parameters:
     symfony:
-        container_xml_path: tests/Application/var/cache/test/testContainer.xml
+        container_xml_path: tests/Application/var/cache/test/Tests_ThreeBRS_SyliusContactFormPlugin_KernelTestDebugContainer.xml
 
-    excludes_analyse:
+    excludePaths:
         # Too slow
         - 'src/DependencyInjection/Configuration.php'
 

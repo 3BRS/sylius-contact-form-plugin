@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
+ *
  * @ORM\Table(name="threebrs_sylius_contact_form")
  */
 class ContactFormMessage implements ResourceInterface, ContactFormMessageInterface
@@ -19,7 +20,9 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
+     *
      * @ORM\Id
+     *
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
@@ -35,7 +38,9 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      * @ORM\Column(type="string", nullable=false)
      *
      * @var string|null
+     *
      * @Assert\NotBlank()
+     *
      * @Assert\Email()
      */
     protected $email;
@@ -51,6 +56,7 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      * @var string|null
      *
      * @ORM\Column(type="text", nullable=false)
+     *
      * @Assert\NotBlank()
      */
     protected $message;

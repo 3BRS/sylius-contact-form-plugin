@@ -11,10 +11,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ThreeBRS\SyliusContactFormPlugin\Controller\Partials\GetFlashBagTrait;
 use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
 use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageAnswer;
 use ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType;
@@ -24,7 +24,9 @@ use Twig\Environment;
 
 class ContactFormAdminController
 {
-    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
+    use GetFlashBagTrait;
+
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
     {
     }
 
@@ -57,7 +59,7 @@ class ContactFormAdminController
             $this->entityManager->flush();
 
             $this->mailer->send('threebrs_sylius_contact_form_answer_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessageAnswer]);
-            $this->flashBag->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
+            $this->getFlashBag($request)->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
             return new RedirectResponse($this->router->generate('threebrs_sylius_admin_contact_show', ['id' => $id]));
         }

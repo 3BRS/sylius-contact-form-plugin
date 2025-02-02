@@ -16,10 +16,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ThreeBRS\SyliusContactFormPlugin\Controller\Partials\GetFlashBagTrait;
 use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
 use ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageType;
 use ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProviderInterface;
@@ -27,7 +27,9 @@ use Twig\Environment;
 
 class ContactFormController
 {
-    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret)
+    use GetFlashBagTrait;
+
+    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret)
     {
     }
 
@@ -54,7 +56,7 @@ class ContactFormController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            if ($this->recaptchaPublic !== null && $this->recaptchaSecret !== null && $this->recaptchaPublic !== '' && $this->recaptchaSecret !== 'null' && $form->isValid()) {
+            if ($this->recaptchaPublic !== '' && $this->recaptchaSecret !== 'null' && $form->isValid()) {
                 $recaptcha = new ReCaptcha($this->recaptchaSecret);
                 $resp = $recaptcha->verify((string) $request->request->get('g-recaptcha-response'), $request->getClientIp());
                 if (!$resp->isSuccess()) {
@@ -83,11 +85,11 @@ class ContactFormController
                     $this->mailer->send('threebrs_sylius_contact_form_contact_form_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessage]);
                 }
 
-                $this->flashBag->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
+                $this->getFlashBag($request)->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
                 return new RedirectResponse($this->router->generate('sylius_shop_contact_request'));
             }
-            $this->flashBag->add('error', $this->translator->trans('threebrs_sylius_contact_form_plugin.error.form'));
+            $this->getFlashBag($request)->add('error', $this->translator->trans('threebrs_sylius_contact_form_plugin.error.form'));
         }
 
         return new Response($this->templatingEngine->render('@ThreeBRSSyliusContactFormPlugin/Shop/contactPage.html.twig', [

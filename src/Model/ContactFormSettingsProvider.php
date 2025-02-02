@@ -6,17 +6,13 @@ namespace ThreeBRS\SyliusContactFormPlugin\Model;
 
 class ContactFormSettingsProvider implements ContactFormSettingsProviderInterface
 {
-    /** @var bool */
-    private $nameRequired;
+    private bool $nameRequired;
 
-    /** @var bool */
-    private $phoneRequired;
+    private bool $phoneRequired;
 
-    /** @var bool */
-    private $sendManager;
+    private bool $sendManager;
 
-    /** @var bool */
-    private $sendCustomer;
+    private bool $sendCustomer;
 
     public function __construct(array $config)
     {

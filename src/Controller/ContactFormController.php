@@ -27,7 +27,7 @@ use Twig\Environment;
 
 class ContactFormController
 {
-    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $token, private string $recaptchaPublic, private string $recaptchaSecret)
+    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FlashBagInterface $flashBag, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret)
     {
     }
 
@@ -35,7 +35,7 @@ class ContactFormController
     {
         $contactFormMessage = new ContactFormMessage();
 
-        $token = $this->token->getToken();
+        $token = $this->tokenStorage->getToken();
         if ($token !== null) {
             $shopUser = $token->getUser();
             if ($shopUser instanceof ShopUser) {

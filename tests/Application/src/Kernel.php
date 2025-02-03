@@ -124,9 +124,19 @@ final class Kernel extends BaseKernel
             yield $syliusConfigDir;
         }
 
+        $syliusVersionPlusConfigDir = $this->getProjectDir() . '/config/sylius/' . SyliusKernel::MAJOR_VERSION . '+';
+        if (is_dir($syliusVersionPlusConfigDir)) {
+            yield $syliusVersionPlusConfigDir;
+        }
+
         $symfonyConfigDir = $this->getProjectDir() . '/config/symfony/' . BaseKernel::MAJOR_VERSION . '.' . BaseKernel::MINOR_VERSION;
         if (is_dir($symfonyConfigDir)) {
             yield $symfonyConfigDir;
+        }
+
+        $symfonyVersionPlusConfigDir = $this->getProjectDir() . '/config/symfony/' . BaseKernel::MAJOR_VERSION . '+';
+        if (is_dir($symfonyVersionPlusConfigDir)) {
+            yield $symfonyVersionPlusConfigDir;
         }
     }
 }

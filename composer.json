@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "sylius/sylius": "1.11.*|1.12.*|1.13.*",
+        "sylius/sylius": "1.12.*|1.13.*",
         "google/recaptcha": "^1.2"
     },
     "require-dev": {
@@ -32,15 +32,15 @@
         "polishsymfonycommunity/symfony-mocker-container": "^1.0",
         "rector/rector": "^0.18.12",
         "sylius-labs/coding-standard": "^4.2",
-        "symfony/browser-kit": "^5.4 || ^6.0",
-        "symfony/debug-bundle": "^5.4 || ^6.0",
-        "symfony/dotenv": "^5.4 || ^6.0",
+        "symfony/browser-kit": "^6.0",
+        "symfony/debug-bundle": "^6.0",
+        "symfony/dotenv": "^6.0",
         "symfony/flex": "^2.2.2",
-        "symfony/framework-bundle": "^5.4 || ^6.0",
-        "symfony/http-foundation": "^5.4 || ^6.0",
-        "symfony/http-kernel": "^5.4 || ^6.0",
-        "symfony/intl": "^5.4 || ^6.0",
-        "symfony/web-profiler-bundle": "^5.4 || ^6.0",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/http-foundation": "^6.0",
+        "symfony/http-kernel": "^6.0",
+        "symfony/intl": "^6.0",
+        "symfony/web-profiler-bundle": "^6.0",
         "doctrine/annotations": "^2.0"
     },
     "conflict": {

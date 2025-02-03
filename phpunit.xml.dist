@@ -4,6 +4,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.6/phpunit.xsd"
          backupGlobals="false"
          colors="true"
+
          bootstrap="tests/Application/config/bootstrap.php">
     <testsuites>
         <testsuite name="AcmeSyliusExamplePlugin Test Suite">
@@ -28,5 +29,8 @@
         <env name="GOOGLE_RECAPTCHA_SITE_KEY" value=""/>
         <env name="GOOGLE_RECAPTCHA_SECRET" value=""/>
         <!-- ###- google/recaptcha ### -->
+        <!-- ###+ symfony/mailer ### -->
+        <env name="MAILER_DSN" value="null://null"/>
+        <!-- ###- symfony/mailer ### -->
     </php>
 </phpunit>

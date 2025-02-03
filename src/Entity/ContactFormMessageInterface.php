@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ThreeBRS\SyliusContactFormPlugin\Entity;
 
 use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Customer\Model\CustomerInterface as BaseCustomerInterface;
 
 interface ContactFormMessageInterface
 {
@@ -30,9 +31,9 @@ interface ContactFormMessageInterface
 
     public function setCreatedAt(?\DateTime $createdAt): void;
 
-    public function getCustomer(): ?CustomerInterface;
+    public function getCustomer(): CustomerInterface|BaseCustomerInterface|null;
 
-    public function setCustomer(?CustomerInterface $customer): void;
+    public function setCustomer(CustomerInterface|BaseCustomerInterface|null $customer): void;
 
     public function getUserAgent(): ?string;
 

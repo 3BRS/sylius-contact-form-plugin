@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="threebrs_sylius_contact_form_message_answer")
  */
 #[ORM\Entity]
-#[ORM\Table(name: "threebrs_sylius_contact_form_message_answer")]
+#[ORM\Table(name: 'threebrs_sylius_contact_form_message_answer')]
 class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageAnswerInterface
 {
     /**
@@ -28,8 +28,8 @@ class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageA
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     #[ORM\Id]
-    #[ORM\Column(name: "id", type: "integer")]
-    #[ORM\GeneratedValue(strategy: "IDENTITY")]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     protected $id;
 
     /**
@@ -39,7 +39,7 @@ class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageA
      *
      * @Assert\NotBlank
      */
-    #[ORM\Column(type: "text", nullable: false)]
+    #[ORM\Column(type: 'text', nullable: false)]
     #[Assert\NotBlank]
     protected $message;
 
@@ -48,7 +48,7 @@ class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageA
      *
      * @var \DateTime|null
      */
-    #[ORM\Column(type: "datetime")]
+    #[ORM\Column(type: 'datetime')]
     protected $createdAt;
 
     /**

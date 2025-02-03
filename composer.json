@@ -40,7 +40,8 @@
         "symfony/http-foundation": "^5.4 || ^6.0",
         "symfony/http-kernel": "^5.4 || ^6.0",
         "symfony/intl": "^5.4 || ^6.0",
-        "symfony/web-profiler-bundle": "^5.4 || ^6.0"
+        "symfony/web-profiler-bundle": "^5.4 || ^6.0",
+        "doctrine/annotations": "^2.0"
     },
     "conflict": {
         "babdev/pagerfanta-bundle": "<3.6.1",
@@ -55,7 +56,7 @@
         "polishsymfonycommunity/symfony-mocker-container": "<1.0.6",
         "sylius/resource-bundle": "<1.10.0",
         "symfony/css-selector": "<4.4.24",
-        "symfony/framework-bundle": ">=6.1.0 <6.1.4|6.2.8",
+        "symfony/framework-bundle": ">=6.1.0 <=6.1.8|>=6.2.0 <=6.2.2|6.2.8",
         "symfony/mime": "<5.4.0",
         "symfony/web-link": "<5.3.0",
         "symplify/easy-coding-standard": "<10.2.0",

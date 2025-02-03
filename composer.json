@@ -66,13 +66,13 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "ThreeBRS\\SyliusContactFormPlugin\\": "src/",
-            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\": "tests/"
+            "ThreeBRS\\SyliusContactFormPlugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\": "tests/Application/src/"
+            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\": "tests/Application/src/",
+            "Tests\\ThreeBRS\\SyliusContactFormPlugin\\Behat\\": "tests/Behat/"
         }
     },
     "config": {

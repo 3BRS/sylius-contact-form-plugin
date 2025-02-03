@@ -19,8 +19,11 @@ frontend:
 lint:
 	APP_ENV=test bin/symfony-lint.sh
 
+behat:
+	APP_ENV=test bin/behat.sh
+
 init: install backend frontend
 
-ci: init phpstan ecs lint
+ci: init phpstan ecs lint behat
 
 static: install phpstan ecs lint

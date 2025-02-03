@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ThreeBRS\SyliusContactFormPlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Customer\Model\CustomerInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,21 +15,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="threebrs_sylius_contact_form")
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'threebrs_sylius_contact_form')]
+#[ORM\Table(name: "threebrs_sylius_contact_form")]
 class ContactFormMessage implements ResourceInterface, ContactFormMessageInterface
 {
     /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
-     *
      * @ORM\Id
-     *
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     #[ORM\Id]
-    #[ORM\Column(name: 'id', type: 'integer')]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(name: "id", type: "integer")]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
     protected $id;
 
     /**
@@ -37,7 +35,7 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      *
      * @var string|null
      */
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: "string", nullable: true)]
     protected $customerName;
 
     /**
@@ -46,10 +44,9 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      * @var string|null
      *
      * @Assert\NotBlank()
-     *
      * @Assert\Email()
      */
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: "string", nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Email]
     protected $email;
@@ -59,7 +56,7 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      *
      * @var string|null
      */
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[ORM\Column(type: "string", length: 50, nullable: true)]
     protected $phone;
 
     /**
@@ -69,7 +66,7 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      *
      * @Assert\NotBlank()
      */
-    #[ORM\Column(type: 'text', nullable: false)]
+    #[ORM\Column(type: "text", nullable: false)]
     #[Assert\NotBlank]
     protected $message;
 
@@ -78,7 +75,7 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      *
      * @ORM\Column(type="datetime")
      */
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: "datetime")]
     protected $createdAt;
 
     /**
@@ -94,7 +91,7 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: "string", nullable: true)]
     protected $userAgent;
 
     /**
@@ -102,7 +99,7 @@ class ContactFormMessage implements ResourceInterface, ContactFormMessageInterfa
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: "string", nullable: true)]
     protected $ip;
 
     public function getCustomerDescriptor(): ?string

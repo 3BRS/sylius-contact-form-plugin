@@ -42,6 +42,10 @@ Contact Form Plugin
 
 1. Run `$ composer require 3brs/sylius-contact-form-plugin`.
 2. Register `\ThreeBRS\SyliusContactFormPlugin\ThreeBRSSyliusContactFormPlugin` in your Kernel.
+    ```php
+   // config/bundles.php
+    ThreeBRS\SyliusContactFormPlugin\ThreeBRSSyliusContactFormPlugin::class => ['all' => true],
+   ```
 1. Add resource to `config/packages/_sylius.yaml`
 
     ```yaml
@@ -50,7 +54,7 @@ Contact Form Plugin
          - { resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/config.yml" }
     ```
    
-1. Add routing to `config/_routes.yaml`
+1. Add routing to `config/routes.yaml`
 
     ```yaml
 

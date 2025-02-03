@@ -17,8 +17,9 @@ final class MessageContext implements Context
 
     /**
      * @Given there is a customer :customer that submits a contact form
+     * @noinspection PhpUnused
      */
-    public function thereIsACustomerThatSubmitsAContactForm(Customer $customer)
+    public function thereIsACustomerThatSubmitsAContactForm(Customer $customer): void
     {
         $message = new ContactFormMessage();
         $message->setCustomerName($customer->getFullName());

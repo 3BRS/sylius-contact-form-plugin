@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.2.0 (2025-02-05)
+- Support for Sylius 1.12|1.13, Symfony ^6.0
+
+## v1.1.0 (2025-02-05)
+- Support for Sylius 1.11, Symfony ^5.4
+- Drop support for PHP 7.*
+
 ## v1.0.0 (2021-11-29)
 
 ### Details

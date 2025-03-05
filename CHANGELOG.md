@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.2.1 (2025-03-05)
+- Add Czech, Polish and French translations
+
 ## v1.2.0 (2025-02-05)
 - Support for Sylius 1.12|1.13, Symfony ^6.0
 

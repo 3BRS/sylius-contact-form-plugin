@@ -1,0 +1,45 @@
+threebrs_sylius_contact_form_plugin:
+  title:
+    contact: 'Kontaktní formulář'
+    answer: 'Odpověď na zprávu'
+    customer:
+      index: 'Historie zpráv'
+      show: 'Vlákno zpráv'
+  required: 'Povinné'
+  customerName: 'Jméno'
+  email: 'E-mail'
+  phone: 'Telefon'
+  message: 'Zpráva'
+  success: 'Zpráva byla úspěšně odeslána.'
+  error:
+    form: 'Při odesílání zprávy došlo k chybě'
+    recaptcha: 'reCAPTCHA není platná'
+  time: 'Odesláno v %time%'
+  name: 'Od %name%'
+  subject:
+    shopManager: 'Zpráva od %customerName%'
+    customer: 'Zpráva odeslána'
+    answer: 'Nová odpověď'
+  label:
+    date: 'Datum'
+    name: 'Jméno'
+    email: 'E-mail'
+    phone: 'Telefon'
+    message: 'Zpráva'
+  account:
+    name: 'Vaše zpráva'
+    reply: 'Odpovědět'
+  admin:
+    form:
+      submitButton: 'Přidat odpověď'
+    show:
+      custommer: 'Zákazník'
+      admin: 'Administrátor'
+
+  ui:
+    title: 'Zprávy'
+    subtitle: 'Správa vašich zpráv'
+    detailTitle: 'Zprávy od %customerName%'
+    messages: 'Zprávy'
+    new_message: 'Nová zpráva'
+    show_message: 'Zobrazit zprávu'

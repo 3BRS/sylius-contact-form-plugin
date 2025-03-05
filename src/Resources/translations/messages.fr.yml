@@ -1,0 +1,45 @@
+threebrs_sylius_contact_form_plugin:
+  title:
+    contact: 'Formulaire de contact'
+    answer: 'Réponse au message'
+    customer:
+      index: 'Historique des messages'
+      show: 'Fil de discussion'
+  required: 'Requis'
+  customerName: 'Nom'
+  email: 'E-mail'
+  phone: 'Téléphone'
+  message: 'Message'
+  success: 'Le message a été envoyé avec succès.'
+  error:
+    form: "Une erreur est survenue lors de l'envoi du message"
+    recaptcha: 'reCAPTCHA invalide'
+  time: 'Envoyé à %time%'
+  name: 'De %name%'
+  subject:
+    shopManager: 'Message de %customerName%'
+    customer: 'Message envoyé'
+    answer: 'Nouvelle réponse'
+  label:
+    date: 'Date'
+    name: 'Nom'
+    email: 'E-mail'
+    phone: 'Téléphone'
+    message: 'Message'
+  account:
+    name: 'Votre message'
+    reply: 'Répondre'
+  admin:
+    form:
+      submitButton: 'Ajouter une réponse'
+    show:
+      custommer: 'Client'
+      admin: 'Administrateur'
+
+  ui:
+    title: 'Messages'
+    subtitle: 'Gérer vos messages'
+    detailTitle: 'Messages de %customerName%'
+    messages: 'Messages'
+    new_message: 'Nouveau message'
+    show_message: 'Voir le message'

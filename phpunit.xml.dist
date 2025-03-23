@@ -22,15 +22,13 @@
         <env name="APP_ENV" value="dev"/>
         <env name="APP_SECRET" value="e1095c7366122a383edf4e168730a6d5"/>
         <!-- ###- symfony/framework-bundle ### -->
-
-        <!-- ###+ google/recaptcha ### -->
-        <!-- To use Google Recaptcha, you must register a site on Recaptcha's admin panel: -->
-        <!-- https://www.google.com/recaptcha/admin -->
-        <env name="GOOGLE_RECAPTCHA_SITE_KEY" value=""/>
-        <env name="GOOGLE_RECAPTCHA_SECRET" value=""/>
-        <!-- ###- google/recaptcha ### -->
         <!-- ###+ symfony/mailer ### -->
         <env name="MAILER_DSN" value="null://null"/>
         <!-- ###- symfony/mailer ### -->
+
+        <!-- ###+ excelwebzone/recaptcha-bundle ### -->
+        <env name="EWZ_RECAPTCHA_SITE_KEY" value=""/>
+        <env name="EWZ_RECAPTCHA_SECRET" value=""/>
+        <!-- ###- excelwebzone/recaptcha-bundle ### -->
     </php>
 </phpunit>

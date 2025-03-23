@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.3.0 (2025-03-21)
+- Support for Sylius 1.14
+- Drop support for Sylius 1.12|1.13
+
 ## v1.2.1 (2025-03-05)
 - Add Czech, Polish and French translations
 

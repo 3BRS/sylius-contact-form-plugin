@@ -2,7 +2,7 @@ phpstan:
 	APP_ENV=test bin/phpstan.sh
 
 ecs:
-	APP_ENV=test bin/ecs.sh --clear-cache --fix
+	APP_ENV=test bin/ecs.sh --clear-cache
 
 fix:
 	APP_ENV=test bin/ecs.sh --fix

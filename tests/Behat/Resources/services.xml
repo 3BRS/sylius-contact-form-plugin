@@ -9,7 +9,7 @@
 		<service id="sylius.behat.context.ui.admin.message_form"
 				 class="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Ui\Admin\ManagingAdminMessageContext">
 			<argument type="service" id="Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface"/>
-			<argument type="service" id="sylius.behat.notification_checker"/>
+			<argument type="service" id="sylius.behat.notification_checker.admin"/>
 			<argument type="service" id="ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface"/>
 		</service>
 

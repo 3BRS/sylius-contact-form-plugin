@@ -4,7 +4,9 @@ includes:
 
 parameters:
     symfony:
-        container_xml_path: tests/Application/var/cache/test/Tests_ThreeBRS_SyliusContactFormPlugin_KernelTestDebugContainer.xml
+        containerXmlPath: tests/Application/var/cache/test/Tests_ThreeBRS_SyliusContactFormPlugin_KernelTestDebugContainer.xml
+
+
 
     excludePaths:
         # Too slow
@@ -13,5 +15,4 @@ parameters:
         # Test dependencies
         - '*/tests/Application/var/*'
 
-        - 'src/Migrations/'
         - 'tests/'

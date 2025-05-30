@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/** @extends AbstractType<mixed> */
 class ContactFormMessageAnswerType extends AbstractType
 {
     /**
@@ -19,6 +20,8 @@ class ContactFormMessageAnswerType extends AbstractType
             ->add('message', TextareaType::class, [
                 'label' => false,
                 'required' => true,
+                'attr' => [
+                    'style' => 'width: 100%; height: 100%;'],
             ]);
     }
 

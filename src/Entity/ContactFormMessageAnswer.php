@@ -9,65 +9,29 @@ use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity
- *
- * @ORM\Table(name="threebrs_sylius_contact_form_message_answer")
- */
 #[ORM\Entity]
 #[ORM\Table(name: 'threebrs_sylius_contact_form_message_answer')]
 class ContactFormMessageAnswer implements ResourceInterface, ContactFormMessageAnswerInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     *
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
     #[ORM\Id]
     #[ORM\Column(name: 'id', type: 'integer')]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
-    protected $id;
+    protected ?int $id = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="text", nullable=false)
-     *
-     * @Assert\NotBlank
-     */
     #[ORM\Column(type: 'text', nullable: false)]
     #[Assert\NotBlank]
-    protected $message;
+    protected ?string $message = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     *
-     * @var \DateTime|null
-     */
     #[ORM\Column(type: 'datetime')]
-    protected $createdAt;
+    protected ?\DateTime $createdAt = null;
 
-    /**
-     * @var ContactFormMessageInterface|null
-     *
-     * @ORM\ManyToOne(targetEntity="ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessageInterface")
-     */
     #[ORM\ManyToOne(targetEntity: ContactFormMessageInterface::class)]
-    protected $contactFormMessage;
+    protected ?ContactFormMessageInterface $contactFormMessage = null;
 
-    /**
-     * @var AdminUserInterface|null
-     *
-     * @ORM\ManyToOne(targetEntity="Sylius\Component\Core\Model\AdminUserInterface")
-     */
     #[ORM\ManyToOne(targetEntity: AdminUserInterface::class)]
-    protected $adminUser;
+    protected ?AdminUserInterface $adminUser = null;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

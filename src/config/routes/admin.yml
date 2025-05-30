@@ -1,0 +1,20 @@
+threebrs_sylius_admin_contact_show:
+  path: contact/show/{id}
+  defaults:
+    _controller: ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAdminController::showMessageAction
+
+threebrs_sylius_admin_contact_message:
+  resource: |
+    alias: threebrs_sylius_contact_form_plugin.message
+    section: admin
+    templates: "@SyliusAdmin\\shared\\crud"
+    except: ['show']
+    redirect: update
+    grid: threebrs_sylius_admin_contact_message
+    vars:
+        all:
+            subheader: threebrs_sylius_contact_form_plugin.ui.subtitle
+            header: threebrs_sylius_contact_form_plugin.ui.title
+        index:
+            icon: 'comments'
+  type: sylius.resource

@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProviderInterface;
 
+/** @extends AbstractType<mixed> */
 class ContactFormMessageType extends AbstractType
 {
     public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings)

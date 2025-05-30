@@ -51,7 +51,7 @@ Contact Form Plugin
     ```yaml
     imports:
          ...
-         - { resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/config.yml" }
+         - { resource: "@ThreeBRSSyliusContactFormPlugin/config/config.yml" }
     ```
    
 1. Add routing to `config/routes.yaml`
@@ -59,7 +59,7 @@ Contact Form Plugin
     ```yaml
 
     threebrs_sylius_contact_form_plugin:
-        resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/routing.yml"
+        resource: "@ThreeBRSSyliusContactFormPlugin/config/routing.yml"
     ```
 
 1. Define parameters in `.env` file

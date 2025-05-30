@@ -1,0 +1,53 @@
+{% extends '@SyliusAdmin/shared/layout/base.html.twig' %}
+
+{% set message = message %}
+{% set answers = answers %}
+{% set form = form %}
+
+{# Prepare reusable variables like Sylius does internally in CRUD controllers #}
+{# applicationName and pluralName is used as a fallback for the breadcrumb, see vendor/sylius/sylius/src/Sylius/Bundle/AdminBundle/templates/shared/crud/index/content/header/breadcrumbs.html.twig
+	Change it by passing 'title' when rendering the template
+#}
+{% set metadata = metadata|default({
+	applicationName: 'threebrs_sylius_contact_form_plugin',
+	pluralName: 'messages',
+	name: 'messages',
+}) %}
+
+{% set configuration = configuration|default({
+	title: ''
+}) %}
+
+{% set resources = resources|default({ definition: { enabledFilters: false }, data: {} }) %}
+{% set filters = filters|default({}) %}
+{% set resource=null %}
+
+{# Block for title, using configuration title #}
+{% block title %}{{ 'threebrs_sylius_contact_form_plugin.ui.detailTitle'|trans ({'%customerName%': message.customerDescriptor }) }}{% endblock %}
+ 
+
+{% block body %}
+
+ 
+     {% hook 'sylius_admin.show_message.index' with {
+   
+    	title: 'threebrs_sylius_contact_form_plugin.ui.title'|trans,
+       } 
+	%}  
+
+
+
+{% endblock %}
+
+
+{# Block for stylesheets - delegates to hook #}
+{% block stylesheets %}
+	{{ parent() }}
+	{% hook 'sylius_admin.base#stylesheets' %}
+{% endblock %}
+
+{# Block for javascripts - delegates to hook #}
+{% block javascripts %}
+	{{ parent() }}
+	{% hook 'sylius_admin.base#javascripts' %}
+{% endblock %}

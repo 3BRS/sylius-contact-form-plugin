@@ -9,108 +9,48 @@ use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity
- *
- * @ORM\Table(name="threebrs_sylius_contact_form")
- */
 #[ORM\Entity]
 #[ORM\Table(name: 'threebrs_sylius_contact_form')]
 class ContactFormMessage implements ResourceInterface, ContactFormMessageInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     *
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
     #[ORM\Id]
     #[ORM\Column(name: 'id', type: 'integer')]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
-    protected $id;
+    protected ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @var string|null
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    protected $customerName;
+    protected ?string $customerName = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     *
-     * @var string|null
-     *
-     * @Assert\NotBlank()
-     *
-     * @Assert\Email()
-     */
     #[ORM\Column(type: 'string', nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Email]
-    protected $email;
+    protected ?string $email = null;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     *
-     * @var string|null
-     */
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    protected $phone;
+    protected ?string $phone = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="text", nullable=false)
-     *
-     * @Assert\NotBlank()
-     */
     #[ORM\Column(type: 'text', nullable: false)]
     #[Assert\NotBlank]
-    protected $message;
+    protected ?string $message = null;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(type="datetime")
-     */
     #[ORM\Column(type: 'datetime')]
-    protected $createdAt;
+    protected ?\DateTime $createdAt = null;
 
-    /**
-     * @var CustomerInterface|null
-     *
-     * @ORM\ManyToOne(targetEntity="Sylius\Component\Customer\Model\CustomerInterface")
-     */
     #[ORM\ManyToOne(targetEntity: CustomerInterface::class)]
-    protected $customer;
+    protected ?CustomerInterface $customer = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    protected $userAgent;
+    protected ?string $userAgent = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
     #[ORM\Column(type: 'string', nullable: true)]
-    protected $ip;
+    protected ?string $ip = null;
 
     public function getCustomerDescriptor(): ?string
     {
         return $this->customerName ?? $this->email;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

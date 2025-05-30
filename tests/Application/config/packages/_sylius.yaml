@@ -1,13 +1,11 @@
 imports:
     - { resource: "@SyliusCoreBundle/Resources/config/app/config.yml" }
-
+    - { resource: "@SyliusPayumBundle/Resources/config/app/config.yaml" }
     - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
-
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
-
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
-
-    - { resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/config.yml" }
+    - { resource: "@ThreeBRSSyliusContactFormPlugin/config/config.yml" }
+    
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
@@ -15,6 +13,10 @@ parameters:
 sylius_shop:
     product_grid:
         include_all_descendants: true
+
+
+sylius_api:
+    enabled: true
 
 three_brs_sylius_contact_form:
     # Define if an email should be sent to the manager when contact form is send

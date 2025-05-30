@@ -1,2 +1,2 @@
 threebrs_sylius_contact_form_plugin:
-  resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/routing.yml"
+  resource: "@ThreeBRSSyliusContactFormPlugin/config/routing.yml"

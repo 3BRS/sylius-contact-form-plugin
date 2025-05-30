@@ -1,0 +1,84 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface: '@threebrs_sylius_contact_form_plugin.repository.message'
+  ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepositoryInterface: '@threebrs_sylius_contact_form_plugin.repository.answer'
+
+  Sylius\ShopBundle\Form\Type\ContactType: '@ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageType'
+
+
+  ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider:
+    arguments:
+      $config: '%three_brs_sylius_contact_form%'
+
+  ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageType:
+    tags:
+      - name: form.type
+    arguments:
+      $contactFormSettings: '@ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider'
+
+  ThreeBRS\SyliusContactFormPlugin\Form\Type\ContactFormMessageAnswerType:
+    tags:
+      - name: form.type
+
+  ThreeBRS\SyliusContactFormPlugin\Menu\AdminContactMenuBuilder:
+    tags:
+      - name: kernel.event_listener
+        event: sylius.menu.admin.main
+        method: buildMenu
+
+  ThreeBRS\SyliusContactFormPlugin\Menu\AccountContactMenuBuilder:
+    tags:
+      - name: kernel.event_listener
+        event: sylius.menu.shop.account
+        method: buildMenu
+    
+
+  ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAccountController:
+    tags:
+      - name: controller.service_arguments
+    arguments:
+      $translator: '@translator'
+      $templatingEngine: '@twig'
+      $entityManager: '@doctrine.orm.entity_manager'
+      $router: '@router'
+      $builder: '@form.factory'
+      $channelContext: '@sylius.context.channel'
+      $contactFormMessageRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface'
+      $contactFormMessageAnswerRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepositoryInterface'
+      $tokenStorage: '@security.token_storage'
+
+  ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAdminController:
+    tags:
+      - name: controller.service_arguments
+    arguments:
+      $translator: '@translator'
+      $templatingEngine: '@twig'
+      $entityManager: '@doctrine.orm.entity_manager'
+      $mailer: '@mailer'
+      $router: '@router'
+      $builder: '@form.factory'
+      $contactFormMessageRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface'
+      $contactFormMessageAnswerRepository: '@ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepositoryInterface'
+      $tokenStorage: '@security.token_storage'
+
+  ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormController:
+    public: true
+    tags:
+      - name: controller.service_arguments
+    
+    arguments:
+      $contactFormSettings: '@ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider'
+      $translator: '@translator'
+      $templatingEngine: '@twig'
+      $entityManager: '@doctrine.orm.entity_manager'
+      $mailer: '@mailer'
+      $router: '@router'
+      $builder: '@form.factory'
+      $channelContext: '@sylius.context.channel'
+      $tokenStorage: '@security.token_storage'
+      $recaptchaPublic: '%env(string:GOOGLE_RECAPTCHA_SITE_KEY)%'
+      $recaptchaSecret: '%env(string:GOOGLE_RECAPTCHA_SECRET)%'

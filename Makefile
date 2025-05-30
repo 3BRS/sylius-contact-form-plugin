@@ -12,29 +12,52 @@ install:
 	rm -fr tests/Application/public/media/cache && mkdir -p tests/Application/public/media/cache && chmod -R 777 tests/Application/public/media
 	rm -fr tests/Application/var && mkdir -p tests/Application/var && chmod -R 777 tests/Application/var
 
-backend:
-	APP_ENV=test tests/Application/bin/console --no-ansi doctrine:database:drop --force --if-exists
-	APP_ENV=test tests/Application/bin/console doctrine:database:create
-	APP_ENV=test tests/Application/bin/console sylius:install --no-interaction
-	APP_ENV=test tests/Application/bin/console doctrine:schema:update --force --complete --no-interaction
-	APP_ENV=test tests/Application/bin/console sylius:fixtures:load default --no-interaction
+backend: recreate_db var
 
 frontend:
 	APP_ENV=test tests/Application/bin/console assets:install
 	(cd tests/Application && yarn install --pure-lockfile)
 	(cd tests/Application && GULP_ENV=prod yarn build)
+	@make var
+
+recreate_db:
+	APP_ENV=test tests/Application/bin/console doctrine:database:drop --force --if-exists
+	APP_ENV=test tests/Application/bin/console doctrine:database:create --no-interaction
+	APP_ENV=test tests/Application/bin/console doctrine:migrations:migrate --no-interaction
+	APP_ENV=test tests/Application/bin/console doctrine:schema:update --force --complete --no-interaction
+	APP_ENV=test tests/Application/bin/console doctrine:migration:sync-metadata-storage
+
+var:
+	rm -fr tests/Application/var
+	mkdir -p tests/Application/var/cache
+	mkdir -p tests/Application/var/cache/test/profiler
+	mkdir -p tests/Application/var/log
+	touch tests/Application/var/log/test.log
+	chmod -R 777 tests/Application/var
+
+cache:
+	APP_ENV=test tests/Application/bin/console cache:clear
+	chmod -R 777 tests/Application/var
+
+fixtures:
+	@make recreate_db
+	APP_ENV=test tests/Application/bin/console sylius:fixtures:load default --no-interaction
+	@make var
 
 lint:
 	APP_ENV=test bin/symfony-lint.sh
+	APP_ENV=test bin/doctrine-lint.sh
 
 behat:
 	APP_ENV=test bin/behat.sh
 
-init: install backend frontend
+init: install backend frontend fixtures var
 
-ci: init phpstan ecs lint behat
+tests: phpstan ecs lint behat
 
 static: phpstan ecs lint
+
+ci: init static behat
 
 run:
 	docker compose up --detach

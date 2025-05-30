@@ -1,0 +1,65 @@
+{% extends '@SyliusShop/shared/layout/base.html.twig' %}
+
+{% form_theme form '@SyliusShop/form/theme.html.twig' %}
+
+     
+{% block content %}
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title h3 mb-4">
+                        {{ 'threebrs_sylius_contact_form_plugin.title.contact'|trans }}
+                    </h1>
+
+                    {{ form_start(form, {'attr': {'class': 'needs-validation', 'id': 'contact_form', 'novalidate': 'novalidate'}}) }}
+                    
+                    {{ form_errors(form) }}
+
+                    <div class="mb-3">
+                        {{ form_row(form.customerName) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_row(form.email) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_row(form.phone) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_row(form.message) }}
+                    </div>
+
+                    {% if key is null %}
+                        <button type="submit" class="btn btn-primary w-100">
+                            {{ 'sylius.ui.send'|trans }}
+                        </button>
+                    {% else %}
+                        <button class="g-recaptcha btn btn-primary w-100"
+                                data-sitekey="{{ key }}"
+                                data-callback="onSubmit">
+                            {{ 'sylius.ui.send'|trans }}
+                        </button>
+                    {% endif %}
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ include('@ThreeBRSSyliusContactFormPlugin/Shop/_recaptcha.html.twig') }}
+{% endblock %} 
+
+  

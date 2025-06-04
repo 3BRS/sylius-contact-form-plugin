@@ -8,6 +8,7 @@ fix:
 	APP_ENV=test bin/ecs.sh --fix
 
 install:
+	rm -f composer.lock
 	composer install --no-interaction --no-scripts
 	rm -fr tests/Application/public/media/cache && mkdir -p tests/Application/public/media/cache && chmod -R 777 tests/Application/public/media
 	rm -fr tests/Application/var && mkdir -p tests/Application/var && chmod -R 777 tests/Application/var
@@ -16,7 +17,7 @@ backend: recreate_db var
 
 frontend:
 	APP_ENV=test tests/Application/bin/console assets:install
-	(cd tests/Application && yarn install --pure-lockfile)
+	(cd tests/Application && yarn install --no-lockfile)
 	(cd tests/Application && GULP_ENV=prod yarn build)
 	@make var
 

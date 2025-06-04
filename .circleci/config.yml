@@ -8,7 +8,7 @@ workflows:
                     matrix:
                         parameters:
                             sylius_version: [ "2" ]
-                            php_version: [ "8.2", "8.3", "8.4" ] #drop support for 8.1 
+                            php_version: [ "8.2", "8.3" ] 
                             symfony_version: [ "6.4" ,"7.1", "7.2" ]
 
 jobs:

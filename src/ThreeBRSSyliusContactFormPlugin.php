@@ -15,7 +15,7 @@ class ThreeBRSSyliusContactFormPlugin extends Bundle
      * Affects loading of files from the bundle's config directory and resolving real path from logic path, @see \Symfony\Component\HttpKernel\Kernel::locateResource
      * and @see \Symfony\Bundle\TwigBundle\TemplateIterator::getIterator
      */
-     public function getPath(): string
+    public function getPath(): string
     {
         return \dirname(__DIR__);
     }

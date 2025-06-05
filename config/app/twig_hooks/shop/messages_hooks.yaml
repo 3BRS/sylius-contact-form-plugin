@@ -1,11 +1,11 @@
 sylius_twig_hooks:
     hooks:
-      'Message_Index_Breadcrumbs':
+      'threebrs_contact_form_shop_Message_Index_Breadcrumbs':
           message_index_breadcrumbs_hookable:
               template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/MessageIndex/breadcrumbs.html.twig'
               priority: 100   
 
-      'Message_Index_Content':
+      'threebrs_contact_form_shop_Message_Index_Content':
           message_index_content_hookable:
               template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/MessageIndex/content.html.twig'
               priority: 100 
@@ -13,16 +13,16 @@ sylius_twig_hooks:
               template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/Grid/message_index_grid.html.twig'
               priority: 50        
 
-      'Message_Show_Breadcrumbs':
+      'threebrs_contact_form_shop_Message_Show_Breadcrumbs':
           message_show_breadcrumbs_hookable:
               template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/MessageShow/breadcrumbs.html.twig'
               priority: 100        
 
-      'Account_Menu':
+      'threebrs_contact_form_shop_Account_Menu':
           menu_hookable:
               template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/MessageShow/menu_override.html.twig'
               priority: 100
-      'Message_Show_Content':
+      'threebrs_contact_form_shop_Message_Show_Content':
           message_show_content_hookable:
               template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/MessageShow/content.html.twig'
               priority: 0

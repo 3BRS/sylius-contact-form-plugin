@@ -1,6 +1,6 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_admin.show_message.index':
+        'threebrs_contact_form_admin.show_message.index':
             sidebar:
                 template: '@SyliusAdmin/shared/crud/common/sidebar.html.twig'
                 priority: 200
@@ -11,19 +11,13 @@ sylius_twig_hooks:
                 template: '@SyliusAdmin/shared/crud/common/content.html.twig'
                 priority: 0
 
-        'sylius_admin.show_message.index.content':
+        'threebrs_contact_form_admin.show_message.index.content':
             flashes:
                 template: '@SyliusAdmin/shared/crud/common/content/flashes.html.twig'
                 priority: 300
             header:
                 template: '@SyliusAdmin/shared/crud/common/content/header.html.twig'
                 priority: 200 
-            #show_message:
-                #template: '@ThreeBRSSyliusContactFormPlugin/Admin/showMessage.html.twig'
-                #priority: 100
-            #show_message_content:
-                #template: '@ThreeBRSSyliusContactFormPlugin/Admin/show.html.twig'
-                #priority: 100
             custom:
                 template: '@ThreeBRSSyliusContactFormPlugin/Admin/custom.html.twig'
                 priority: 100                        
@@ -31,7 +25,7 @@ sylius_twig_hooks:
                 template: '@SyliusAdmin/shared/crud/common/content/footer.html.twig'
                 priority: -100
 
-        'sylius_admin.show_message.index.content.header':
+        'threebrs_contact_form_admin.show_message.index.content.header':
             breadcrumbs:
                 template: '@SyliusAdmin/shared/crud/index/content/header/breadcrumbs.html.twig'
                 priority: 100
@@ -39,7 +33,7 @@ sylius_twig_hooks:
                 template: '@SyliusAdmin/shared/crud/common/content/header/title_block.html.twig'
                 priority: 0
 
-        'sylius_admin.show_message.index.content.header.title_block':
+        'threebrs_contact_form_admin.show_message.index.content.header.title_block':
             title:
                 template: '@SyliusAdmin/shared/crud/common/content/header/title_block/title.html.twig'
                 priority: 100
@@ -47,7 +41,7 @@ sylius_twig_hooks:
                 template: '@SyliusAdmin/shared/crud/common/content/header/title_block/actions.html.twig'
                 priority: 0
 
-        'sylius_admin.show_message.index.content.custom':
+        'threebrs_contact_form_admin.show_message.index.content.custom':
             show_message_content:
                 template: '@ThreeBRSSyliusContactFormPlugin/Admin/showMessage.html.twig'
                 priority: 100

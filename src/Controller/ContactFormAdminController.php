@@ -51,7 +51,6 @@ class ContactFormAdminController
             assert($token && $token->getUser() instanceof AdminUser);
 
             $adminUser = $token->getUser();
-            //assert($adminUser instanceof AdminUser);
 
             $contactFormMessageAnswer->setCreatedAt(new \DateTime());
             $contactFormMessageAnswer->setContactFormMessage($contactFormMessage);

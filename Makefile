@@ -10,9 +10,13 @@ fix:
 install:
 	rm -f composer.lock
 	composer install --no-interaction --no-scripts
-	rm -fr tests/Application/public/media/cache && mkdir -p tests/Application/public/media/cache && chmod -R 777 tests/Application/public/media
-	rm -fr tests/Application/var && mkdir -p tests/Application/var && chmod -R 777 tests/Application/var
-
+	rm -fr tests/Application/public/media/cache
+	mkdir -p tests/Application/public/media/cache
+	chmod -R 777 tests/Application/public/media/cache
+	rm -fr tests/Application/var
+	mkdir -p tests/Application/var
+	chmod -R 777 tests/Application/var
+	
 backend: recreate_db var
 
 frontend:

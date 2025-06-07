@@ -36,16 +36,18 @@
 
                 {% if answers %}
                     {% for answer in answers %}
-                        <div class="card mb-3 messageAnswer" ">
+                        <div class="card mb-3 messageAnswer">
                             <div class="card-body">
                                 <div class="mb-2">
-                                    <strong>
                                         {% if answer.adminUser %}
-                                            {{ 'threebrs_sylius_contact_form_plugin.admin.show.admin'|trans }}:
-                                    </strong>
+                                                <strong>
+                                                    {{ 'threebrs_sylius_contact_form_plugin.admin.show.admin'|trans }}:
+                                                </strong>
                                             {{ answer.adminUser.username }}
                                         {% else %}
-                                            {{ 'threebrs_sylius_contact_form_plugin.admin.show.custommer'|trans }}:
+                                            <strong>
+                                                {{ 'threebrs_sylius_contact_form_plugin.admin.show.custommer'|trans }}:
+                                            </strong>
                                             {{ message.customerDescriptor }}
                                         {% endif %}
                                 </div>

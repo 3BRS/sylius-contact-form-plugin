@@ -10,14 +10,12 @@ use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUser;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -31,7 +29,7 @@ class ContactFormController
 {
     use GetFlashBagTrait;
 
-    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private MailerInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret)
+    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret)
     {
     }
 
@@ -87,33 +85,9 @@ class ContactFormController
                 $channel = $this->channelContext->getChannel();
                 assert($channel instanceof ChannelInterface);
 
-                $fromEmail = $channel->getContactEmail() ?? 'no-reply@example.com';
-
-                if ($channel->getContactEmail() !== null && $this->contactFormSettings->isSendManager()) {
-                    $email = (new TemplatedEmail())
-                        ->from(new Address($fromEmail, 'Shop Bot'))
-                        ->to($channel->getContactEmail())
-                        ->subject($this->translator->trans('threebrs_sylius_contact_form_plugin.subject.shopManager'))
-                        ->htmlTemplate('@ThreeBRSSyliusContactFormPlugin/Shop/Email/adminNoticeEmail.html.twig')
-                        ->context(['contact' => $contactFormMessage]);
-
-                    $this->mailer->send($email);
+                if ($this->contactFormSettings->isSendCustomer() !== false) {
+                    $this->mailer->send('threebrs_sylius_contact_form_contact_form_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessage]);
                 }
-
-                if (
-                    $this->contactFormSettings->isSendCustomer() &&
-                    $contactFormMessage->getEmail() !== null
-                ) {
-                    $email = (new TemplatedEmail())
-                        ->from(new Address($fromEmail, 'Shop Bot'))
-                        ->to(new Address($contactFormMessage->getEmail()))
-                        ->subject($this->translator->trans('threebrs_sylius_contact_form_plugin.subject.customer'))
-                        ->htmlTemplate('@ThreeBRSSyliusContactFormPlugin/Shop/Email/contactFormEmail.html.twig')
-                        ->context(['contact' => $contactFormMessage]);
-
-                    $this->mailer->send($email);
-                }
-
                 $this->getFlashBag($request)->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
                 return new RedirectResponse($this->router->generate('sylius_shop_contact_request'));

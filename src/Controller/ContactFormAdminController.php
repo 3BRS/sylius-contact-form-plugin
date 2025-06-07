@@ -6,13 +6,11 @@ namespace ThreeBRS\SyliusContactFormPlugin\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\AdminUser;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Sylius\Component\Mailer\Sender\SenderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -28,7 +26,7 @@ class ContactFormAdminController
 {
     use GetFlashBagTrait;
 
-    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private MailerInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
     {
     }
 
@@ -59,18 +57,7 @@ class ContactFormAdminController
             $this->entityManager->persist($contactFormMessageAnswer);
             $this->entityManager->flush();
 
-            if ($contactFormMessage->getEmail() !== null) {
-                $email = (new TemplatedEmail())
-                    ->from(new Address('no-reply@example.com', 'Shop Admin'))
-                    ->to(new Address($contactFormMessage->getEmail()))
-                    ->subject($this->translator->trans('threebrs_sylius_contact_form_plugin.subject.answer'))
-                    ->htmlTemplate('@ThreeBRSSyliusContactFormPlugin/Admin/Email/answerEmail.html.twig')
-                    ->context([
-                        'contact' => $contactFormMessageAnswer,
-                    ]);
-
-                $this->mailer->send($email);
-            }
+            $this->mailer->send('threebrs_sylius_contact_form_answer_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessageAnswer]);
 
             $this->getFlashBag($request)->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 

@@ -26,9 +26,7 @@ class ContactFormAdminController
 {
     use GetFlashBagTrait;
 
-    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
-    {
-    }
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage) {}
 
     public function showMessageAction(Request $request, int $id): Response
     {
@@ -58,7 +56,6 @@ class ContactFormAdminController
             $this->entityManager->flush();
 
             $this->mailer->send('threebrs_sylius_contact_form_answer_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessageAnswer]);
-
             $this->getFlashBag($request)->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
             return new RedirectResponse($this->router->generate('threebrs_sylius_admin_contact_show', ['id' => $id]));

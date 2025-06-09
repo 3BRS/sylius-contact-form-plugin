@@ -85,7 +85,6 @@
             "Tests\\ThreeBRS\\SyliusContactFormPlugin\\Behat\\": "tests/Behat/"
         }
     },
-    
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,

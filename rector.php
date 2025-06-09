@@ -19,7 +19,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_82,
     ]);
-
-	$rectorConfig->importNames();
-	$rectorConfig->import(__DIR__ . '/vendor/sylius/sylius-rector/config/config.php');
+    $rectorConfig->importNames();
+    $rectorConfig->import(__DIR__ . '/vendor/sylius/sylius-rector/config/config.php');
 };

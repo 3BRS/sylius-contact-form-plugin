@@ -21,7 +21,6 @@ class ThreeBRSSyliusContactFormExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('three_brs_sylius_contact_form', $config);
-
         $definition = $container->getDefinition(ContactFormSettingsProvider::class);
         $definition->addArgument($config);
     }

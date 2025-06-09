@@ -35,7 +35,6 @@ services:
         event: sylius.menu.shop.account
         method: buildMenu
     
-
   ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormAccountController:
     tags:
       - name: controller.service_arguments

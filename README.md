@@ -26,16 +26,16 @@ Contact Form Plugin
     * Possibility to respond instantly
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/contact_form.PNG"/>
+	<img src="https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/doc/contact_form.PNG?raw=true"/>
 </p>
 <p align="center">
-	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/messages_management_admin_menu.PNG"/>
+	<img src="https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/doc/messages_management_admin_menu.PNG?raw=true"/>
 </p>
 <p align="center">
-	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/messages_management_admin_answer_menu.PNG"/>
+	<img src="https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/doc/messages_management_admin_answer_menu.PNG?raw=true"/>
 </p>
 <p align="center">
-	<img src="https://raw.githubusercontent.com/3brs/sylius-contact-form-plugin/master/doc/messages_management_account_menu.PNG"/>
+	<img src="https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/doc/messages_management_account_menu.PNG?raw=true"/>
 </p>
 
 ## Installation
@@ -51,7 +51,7 @@ Contact Form Plugin
     ```yaml
     imports:
          ...
-         - { resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/config.yml" }
+         - { resource: "@ThreeBRSSyliusContactFormPlugin/config/config.yml" }
     ```
    
 1. Add routing to `config/routes.yaml`
@@ -59,7 +59,7 @@ Contact Form Plugin
     ```yaml
 
     threebrs_sylius_contact_form_plugin:
-        resource: "@ThreeBRSSyliusContactFormPlugin/Resources/config/routing.yml"
+        resource: "@ThreeBRSSyliusContactFormPlugin/config/routing.yml"
     ```
 
 1. Define parameters in `.env` file

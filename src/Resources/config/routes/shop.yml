@@ -1,5 +1,0 @@
-threebrs_sylius_shop_contact_page:
-  path: contact
-  methods: [GET, POST]
-  defaults:
-    _controller: ThreeBRS\SyliusContactFormPlugin\Controller\ContactFormController::requestAction

@@ -65,10 +65,14 @@ class ContactFormController
             }
 
             if ($form->isValid()) {
-                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? null;
+                $contactFormMessage->setIp(is_string($ip) ? $ip : null);
 
-                $contactFormMessage->setIp($ip);
-                $contactFormMessage->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+                $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? null;
+                $contactFormMessage->setUserAgent(is_string($userAgent) ? $userAgent : null);
+                //This change ensure that the return to the IP and useragent is either a string or null
+                //as per expected type of the setters from entity.
+
                 $contactFormMessage->setCreatedAt(new \DateTime());
 
                 $this->entityManager->persist($contactFormMessage);
@@ -77,14 +81,9 @@ class ContactFormController
                 $channel = $this->channelContext->getChannel();
                 assert($channel instanceof ChannelInterface);
 
-                $contactEmail = $channel->getContactEmail();
-                if ($contactEmail !== null && $this->contactFormSettings->isSendManager() !== false) {
-                    $this->mailer->send('threebrs_sylius_contact_form_admin_notice_email', [$contactEmail], ['contact' => $contactFormMessage]);
-                }
                 if ($this->contactFormSettings->isSendCustomer() !== false) {
                     $this->mailer->send('threebrs_sylius_contact_form_contact_form_email', [$contactFormMessage->getEmail()], ['contact' => $contactFormMessage]);
                 }
-
                 $this->getFlashBag($request)->add('success', $this->translator->trans('threebrs_sylius_contact_form_plugin.success'));
 
                 return new RedirectResponse($this->router->generate('sylius_shop_contact_request'));

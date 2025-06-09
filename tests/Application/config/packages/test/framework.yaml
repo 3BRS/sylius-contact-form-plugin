@@ -1,4 +1,15 @@
 framework:
-    test: ~
-    session:
-        storage_factory_id: session.storage.factory.mock_file
+  test: ~
+  session:
+    storage_factory_id: session.storage.factory.mock_file
+
+  mailer:
+    dsn: "%env(MAILER_DSN)%"
+  cache:
+    pools:
+      test.mailer_pool:
+        adapter: cache.adapter.filesystem
+
+  profiler:
+    enabled: true
+    collect: true

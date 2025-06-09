@@ -1,0 +1,72 @@
+{% import '@SyliusAdmin/shared/helper/breadcrumbs.html.twig' as breadcrumb %}
+
+{% set message = hookable_metadata.context.message %}
+{% set answers = hookable_metadata.context.answers %}
+{% set form = hookable_metadata.context.form %}
+
+<div class="row">
+	<div class="col-12">
+		{% set breadcrumbs = [
+            { name: 'sylius.ui.dashboard'|trans, url: path('sylius_admin_dashboard') },
+            { name: 'threebrs_sylius_contact_form_plugin.ui.title'|trans, url: path('threebrs_sylius_contact_form_plugin_admin_message_index') },
+            { name: message.customerDescriptor },
+        ] %}
+
+		{{ breadcrumb.breadcrumbs(breadcrumbs) }}
+	</div>
+
+	<div class="card my-4">
+		<div class="card-body">
+			<div class="mb-2">
+				<strong>{{ 'threebrs_sylius_contact_form_plugin.admin.show.custommer'|trans }}:</strong>
+				{{ message.customerDescriptor }}
+			</div>
+			<div class="mb-2">
+				{{ message.message }}
+			</div>
+			<div class="text-muted">
+				{{ 'threebrs_sylius_contact_form_plugin.time'|trans({'%time%': message.createdAt|date('Y-m-d H:i:s')}) }}
+			</div>
+		</div>
+	</div>
+
+	{% if answers %}
+		{% for answer in answers %}
+			<div class="card mb-3 messageAnswer">
+				<div class="card-body">
+					<div class="mb-2">
+						{% if answer.adminUser %}
+							<strong>
+								{{ 'threebrs_sylius_contact_form_plugin.admin.show.admin'|trans }}:
+							</strong>
+							{{ answer.adminUser.username }}
+						{% else %}
+							<strong>
+								{{ 'threebrs_sylius_contact_form_plugin.admin.show.custommer'|trans }}:
+							</strong>
+							{{ message.customerDescriptor }}
+						{% endif %}
+					</div>
+					<div class="mb-2">{{ answer.message }}</div>
+					<div class="mb-2 text-muted">
+						{{ 'threebrs_sylius_contact_form_plugin.time'|trans({'%time%': answer.createdAt|date('Y-m-d H:i:s')}) }}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+
+	<h4 class="mt-4 mb-3">{{ 'threebrs_sylius_contact_form_plugin.title.answer'|trans }}</h4>
+
+	<div>
+		{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+		<div class="mb-3">
+			{{ form_row(form.message) }}
+		</div>
+		<button type="submit" class="btn btn-primary" id="formSubmitButton">
+			<i class="me-1">{{ ux_icon('bi:pencil-square') }}</i>
+			{{ 'threebrs_sylius_contact_form_plugin.admin.form.submitButton'|trans }}
+		</button>
+		{{ form_end(form) }}
+	</div>
+</div>

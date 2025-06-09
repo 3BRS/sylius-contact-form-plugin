@@ -17,7 +17,7 @@ class AccountContactMenuBuilder
                 'route' => 'threebrs_sylius_contact_form_shop_account_message_index',
             ])
             ->setLabel('threebrs_sylius_contact_form_plugin.title.customer.index')
-            ->setLabelAttribute('icon', 'comments')
+            ->setLabelAttribute('icon', 'tabler:bubble-text')
         ;
     }
 }

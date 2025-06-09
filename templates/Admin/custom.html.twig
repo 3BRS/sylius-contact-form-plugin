@@ -1,0 +1,8 @@
+{% block custom %}
+	<div class="page-body">
+		<div class="container-xl">
+			{% hook 'custom' %}
+			{% hook 'custom#javascript' %}
+		</div>
+	</div>
+{% endblock %}

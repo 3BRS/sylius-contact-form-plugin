@@ -11,9 +11,7 @@ use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
 
 final class MessageContext implements Context
 {
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
-    }
+    public function __construct(private EntityManagerInterface $entityManager) {}
 
     /**
      * @Given there is a customer :customer that submits a contact form

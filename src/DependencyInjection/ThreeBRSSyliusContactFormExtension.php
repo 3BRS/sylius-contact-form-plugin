@@ -14,12 +14,13 @@ class ThreeBRSSyliusContactFormExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.yml');
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('three_brs_sylius_contact_form', $config);
         $definition = $container->getDefinition(ContactFormSettingsProvider::class);
         $definition->addArgument($config);
     }

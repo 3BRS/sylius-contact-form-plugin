@@ -1,0 +1,58 @@
+{% set message = hookable_metadata.context.message %}
+{% set answers = hookable_metadata.context.answers %}
+{% set form = hookable_metadata.context.form %}
+
+<div class="content-wrapper">
+    <div class="mb-4">
+        <h1>
+            {{ 'threebrs_sylius_contact_form_plugin.title.customer.show'|trans }}
+        </h1>
+        {{ 'threebrs_sylius_contact_form_plugin.ui.subtitle'|trans }}
+    </div>
+
+    <div class="border rounded p-3 mb-4">
+        <div class="mb-3">
+            <strong class="d-block">
+                {{ 'threebrs_sylius_contact_form_plugin.account.name'|trans }}
+            </strong>
+            <small class="text-muted">
+                {{ 'threebrs_sylius_contact_form_plugin.time'|trans({'%time%': message.createdAt|date('Y-m-d H:i:s')}) }}
+            </small>
+            <div class="mt-2">
+                {{ message.message }}
+            </div>
+        </div>
+
+        {% if answers %}
+            {% for answer in answers %}
+                <div class="border-top pt-3 mt-3">
+                    <strong class="d-block">
+                        {% if answer.adminUser %}
+                            {{ 'threebrs_sylius_contact_form_plugin.account.reply'|trans }}
+                        {% else %}
+                            {{ 'threebrs_sylius_contact_form_plugin.account.name'|trans }}
+                        {% endif %}
+                    </strong>
+                    <small class="text-muted">
+                        {{ 'threebrs_sylius_contact_form_plugin.time'|trans({'%time%': answer.createdAt|date('Y-m-d H:i:s')}) }}
+                    </small>
+                    <div class="mt-2">
+                        {{ answer.message }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="mt-4 p-3 border rounded bg-light">
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+            <div class="mb-3">
+                {{ form_row(form.message) }}
+            </div>
+            <button type="submit" class="btn btn-primary" id="formSubmitButton">
+                <i class="bi bi-pencil-fill me-1"></i>
+                {{ 'threebrs_sylius_contact_form_plugin.admin.form.submitButton'|trans }}
+            </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

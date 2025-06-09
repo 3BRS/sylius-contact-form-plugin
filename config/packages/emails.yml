@@ -1,0 +1,13 @@
+sylius_mailer:
+  emails:
+    threebrs_sylius_contact_form_admin_notice_email:
+      subject: "Message sent"
+      template: "@ThreeBRSSyliusContactFormPlugin/Shop/Email/adminNoticeEmail.html.twig"
+
+    threebrs_sylius_contact_form_contact_form_email:
+      subject: "Message sent"
+      template: "@ThreeBRSSyliusContactFormPlugin/Shop/Email/contactFormEmail.html.twig"
+
+    threebrs_sylius_contact_form_answer_email:
+      subject: "Message sent"
+      template: "@ThreeBRSSyliusContactFormPlugin/Admin/Email/answerEmail.html.twig"

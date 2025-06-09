@@ -1,28 +1,21 @@
-
 {% set data = hookable_metadata.context.resources.data %}
 
-
 <div class="content-wrapper">
-    <div class= "mb-4">    
+    <div class="mb-4">
         <h1>
             {{ 'threebrs_sylius_contact_form_plugin.title.customer.index'|trans }}
         </h1>
-            {{ 'threebrs_sylius_contact_form_plugin.ui.subtitle'|trans }}
+        {{ 'threebrs_sylius_contact_form_plugin.ui.subtitle'|trans }}
     </div>
 
     <div>
-    {% if data.currentPageResults|length == 0 %}
-        <div class="alert alert-info" data-test-sylius-flash-message="alert-info">
-            <div class="fw-bold">
-                Info
+        {% if data.currentPageResults|length == 0 %}
+            <div class="alert alert-info" data-test-sylius-flash-message="alert-info">
+                <div class="fw-bold">
+                    Info
+                </div>
+                There are no messages to display
             </div>
-            There are no messages to display
-        </div>
-            
-    {% endif %}
-     
+        {% endif %}
     </div>
-
-
-    
 </div>

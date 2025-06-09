@@ -29,9 +29,7 @@ class ContactFormController
 {
     use GetFlashBagTrait;
 
-    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret)
-    {
-    }
+    public function __construct(private ContactFormSettingsProviderInterface $contactFormSettings, private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private SenderInterface $mailer, private RouterInterface $router, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private TokenStorageInterface $tokenStorage, private string $recaptchaPublic, private string $recaptchaSecret) {}
 
     public function requestAction(Request $request): Response
     {
@@ -65,10 +63,6 @@ class ContactFormController
             }
 
             if ($form->isValid()) {
-                /* $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
-
-                $contactFormMessage->setIp($ip);
-                $contactFormMessage->setUserAgent($_SERVER['HTTP_USER_AGENT']); */
                 $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? null;
                 $contactFormMessage->setIp(is_string($ip) ? $ip : null);
 

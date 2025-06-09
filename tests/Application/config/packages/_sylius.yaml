@@ -1,29 +1,27 @@
 imports:
-    - { resource: "@SyliusCoreBundle/Resources/config/app/config.yml" }
-    - { resource: "@SyliusPayumBundle/Resources/config/app/config.yaml" }
-    - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
-    - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
-    - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
-    - { resource: "@ThreeBRSSyliusContactFormPlugin/config/config.yml" }
-    
+  - { resource: "@SyliusCoreBundle/Resources/config/app/config.yml" }
+  - { resource: "@SyliusPayumBundle/Resources/config/app/config.yaml" }
+  - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
+  - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
+  - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
+  - { resource: "@ThreeBRSSyliusContactFormPlugin/config/config.yml" }
 
 parameters:
-    sylius_core.public_dir: '%kernel.project_dir%/public'
+  sylius_core.public_dir: "%kernel.project_dir%/public"
 
 sylius_shop:
-    product_grid:
-        include_all_descendants: true
-
+  product_grid:
+    include_all_descendants: true
 
 sylius_api:
-    enabled: true
+  enabled: true
 
 three_brs_sylius_contact_form:
-    # Define if an email should be sent to the manager when contact form is send
-    send_manager_mail: true
-    # Define if an email should be sent to the customer who send the contact form when the administrator answered it
-    send_customer_mail: true
-    # Define 'name' field requirement in contact form
-    name_required: true
-    # Define 'phone' field requirement in contact form
-    phone_required: true
+  # Define if an email should be sent to the manager when contact form is send
+  send_manager_mail: true
+  # Define if an email should be sent to the customer who send the contact form when the administrator answered it
+  send_customer_mail: true
+  # Define 'name' field requirement in contact form
+  name_required: true
+  # Define 'phone' field requirement in contact form
+  phone_required: true

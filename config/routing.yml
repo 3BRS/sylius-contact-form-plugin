@@ -1,15 +1,15 @@
 threebrs_sylius_contact_form_shop:
-  resource: '@ThreeBRSSyliusContactFormPlugin/config/routes/shop.yml'
+  resource: "@ThreeBRSSyliusContactFormPlugin/config/routes/shop.yml"
   prefix: /{_locale}
   requirements:
     _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 
 threebrs_sylius_contact_form_shop_account:
-  resource: '@ThreeBRSSyliusContactFormPlugin/config/routes/account.yml'
+  resource: "@ThreeBRSSyliusContactFormPlugin/config/routes/account.yml"
   prefix: /{_locale}/account
   requirements:
     _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 
 threebrs_sylius_contact_form_admin:
-  resource: '@ThreeBRSSyliusContactFormPlugin/config/routes/admin.yml'
+  resource: "@ThreeBRSSyliusContactFormPlugin/config/routes/admin.yml"
   prefix: /admin

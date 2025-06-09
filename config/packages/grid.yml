@@ -28,7 +28,7 @@ sylius_grid:
           type: twig
           label: threebrs_sylius_contact_form_plugin.label.message
           options:
-            template: '@ThreeBRSSyliusContactFormPlugin/Admin/Grid/message.html.twig'
+            template: "@ThreeBRSSyliusContactFormPlugin/Admin/Grid/message.html.twig"
       sorting:
         createdAt: desc
       filters:
@@ -54,7 +54,8 @@ sylius_grid:
           class: ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage
           repository:
             method: findAllByCustomerId
-            arguments: ['expr:service("sylius.context.customer").getCustomer().getId()']
+            arguments:
+              ['expr:service("sylius.context.customer").getCustomer().getId()']
       limits: [10, 25, 50, 100]
       fields:
         createdAt:
@@ -67,7 +68,7 @@ sylius_grid:
           type: twig
           label: threebrs_sylius_contact_form_plugin.label.message
           options:
-            template: '@ThreeBRSSyliusContactFormPlugin/Admin/Grid/message.html.twig'
+            template: "@ThreeBRSSyliusContactFormPlugin/Admin/Grid/message.html.twig"
       sorting:
         createdAt: desc
       actions:

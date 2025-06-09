@@ -5,7 +5,7 @@ threebrs_sylius_contact_form_shop_account_message_index:
     _controller: sylius.controller.shop_user::indexAction
     _sylius:
       section: shop_account
-      template: '@ThreeBRSSyliusContactFormPlugin/Shop/Account/index.html.twig'
+      template: "@ThreeBRSSyliusContactFormPlugin/Shop/Account/index.html.twig"
       grid: threebrs_sylius_account_contact_message
 
 threebrs_sylius_contact_form_shop_account_message_show:

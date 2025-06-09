@@ -1,7 +1,12 @@
 imports:
-  - { resource: '@ThreeBRSSyliusContactFormPlugin/config/packages/resources.yml' }
-  - { resource: '@ThreeBRSSyliusContactFormPlugin/config/packages/emails.yml' }
-  - { resource: '@ThreeBRSSyliusContactFormPlugin/config/packages/grid.yml' }
-  - { resource: '@ThreeBRSSyliusContactFormPlugin/config/packages/three_brs_sylius_contact_form.yml' }
-  - { resource: '@ThreeBRSSyliusContactFormPlugin/config/app/twig_hooks/**/*.yaml' }
-
+  - {
+      resource: "@ThreeBRSSyliusContactFormPlugin/config/packages/resources.yml",
+    }
+  - { resource: "@ThreeBRSSyliusContactFormPlugin/config/packages/emails.yml" }
+  - { resource: "@ThreeBRSSyliusContactFormPlugin/config/packages/grid.yml" }
+  - {
+      resource: "@ThreeBRSSyliusContactFormPlugin/config/packages/three_brs_sylius_contact_form.yml",
+    }
+  - {
+      resource: "@ThreeBRSSyliusContactFormPlugin/config/app/twig_hooks/**/*.yaml",
+    }

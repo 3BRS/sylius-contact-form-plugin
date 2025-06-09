@@ -27,14 +27,14 @@
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowrap datatable" {{ sylius_test_html_attribute('grid-table') }}>
                     <thead>
-                    <tr>
-                        {{ table.headers(grid, definition, app.request.attributes) }}
-                    </tr>
+                        <tr>
+                            {{ table.headers(grid, definition, app.request.attributes) }}
+                        </tr>
                     </thead>
                     <tbody {{ sylius_test_html_attribute('grid-table-body') }}>
-                    {% for row in data %}
-                        {{ table.row(grid, definition, row) }}
-                    {% endfor %}
+                        {% for row in data %}
+                            {{ table.row(grid, definition, row) }}
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -46,4 +46,4 @@
             </div>
         </div>
     </div>
-{% endif %} 
+{% endif %}

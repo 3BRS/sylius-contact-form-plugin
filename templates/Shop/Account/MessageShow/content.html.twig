@@ -3,11 +3,11 @@
 {% set form = hookable_metadata.context.form %}
 
 <div class="content-wrapper">
-    <div class= "mb-4">    
+    <div class="mb-4">
         <h1>
             {{ 'threebrs_sylius_contact_form_plugin.title.customer.show'|trans }}
         </h1>
-            {{ 'threebrs_sylius_contact_form_plugin.ui.subtitle'|trans }}
+        {{ 'threebrs_sylius_contact_form_plugin.ui.subtitle'|trans }}
     </div>
 
     <div class="border rounded p-3 mb-4">
@@ -16,7 +16,7 @@
                 {{ 'threebrs_sylius_contact_form_plugin.account.name'|trans }}
             </strong>
             <small class="text-muted">
-                {{ 'threebrs_sylius_contact_form_plugin.time'|trans ({'%time%': message.createdAt|date('Y-m-d H:i:s') }) }}
+                {{ 'threebrs_sylius_contact_form_plugin.time'|trans({'%time%': message.createdAt|date('Y-m-d H:i:s')}) }}
             </small>
             <div class="mt-2">
                 {{ message.message }}
@@ -34,7 +34,7 @@
                         {% endif %}
                     </strong>
                     <small class="text-muted">
-                        {{ 'threebrs_sylius_contact_form_plugin.time'|trans ({'%time%': answer.createdAt|date('Y-m-d H:i:s') }) }}
+                        {{ 'threebrs_sylius_contact_form_plugin.time'|trans({'%time%': answer.createdAt|date('Y-m-d H:i:s')}) }}
                     </small>
                     <div class="mt-2">
                         {{ answer.message }}
@@ -54,7 +54,5 @@
             </button>
             {{ form_end(form) }}
         </div>
-
     </div>
-
 </div>

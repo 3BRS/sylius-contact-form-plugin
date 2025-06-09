@@ -17,10 +17,10 @@ final class Configuration implements ConfigurationInterface
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->booleanNode('send_manager_mail')->defaultFalse()->end()
-                ->booleanNode('send_customer_mail')->defaultFalse()->end()
-                ->booleanNode('name_required')->defaultFalse()->end()
-                ->booleanNode('phone_required')->defaultFalse()->end()
+            ->booleanNode('send_manager_mail')->defaultFalse()->end()
+            ->booleanNode('send_customer_mail')->defaultFalse()->end()
+            ->booleanNode('name_required')->defaultFalse()->end()
+            ->booleanNode('phone_required')->defaultFalse()->end()
             ->end()
         ;
 

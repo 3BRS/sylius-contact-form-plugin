@@ -21,7 +21,7 @@ class ContactFormMessageAnswerType extends AbstractType
                 'label' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
             ]);
     }

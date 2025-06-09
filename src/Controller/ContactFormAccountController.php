@@ -28,7 +28,9 @@ class ContactFormAccountController
 {
     use GetFlashBagTrait;
 
-    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private RouterInterface $router, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage) {}
+    public function __construct(private Environment $templatingEngine, private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private RouterInterface $router, private FormFactoryInterface $builder, private ChannelContextInterface $channelContext, private ContactFormMessageRepository $contactFormMessageRepository, private ContactFormMessageAnswerRepository $contactFormMessageAnswerRepository, private TokenStorageInterface $tokenStorage)
+    {
+    }
 
     public function showAccountMessageAction(Request $request, int $id): Response
     {

@@ -18,3 +18,13 @@
         </div>
     </div>
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/threebrssyliuscontactform/css/message_show.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/threebrssyliuscontactform/js/message_show.js') }}"></script>
+{% endblock %}

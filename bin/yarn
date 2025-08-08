@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 IFS=$'\n\t'
+
+if ! command -v docker &> /dev/null; then
+  yarn "$@"
+  exit 0
+fi
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source "${DIR}/_tty.sh"

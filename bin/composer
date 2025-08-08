@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 IFS=$'\n\t'
+
+if ! command -v docker &> /dev/null; then
+  composer "$@"
+  exit 0
+fi
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # some value to avoid 'invalid environment variable: ' docker compose error
 APP_ENV_DEFINITION='EMPTY_NOTHINGNESS=NOTHING'

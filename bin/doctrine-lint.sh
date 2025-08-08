@@ -8,4 +8,4 @@ cd "$(dirname "$DIR")"
 
 set -x
 
-bin/console --no-interaction doctrine:schema:validate --skip-sync
+./bin/console --no-interaction doctrine:schema:validate --skip-sync

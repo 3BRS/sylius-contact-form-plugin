@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v2.0.1 (2025-08-08)
+- Improve developer experience by `make` commands
+
 ## v2.0.0 (2025-06-07)
 - Support for Sylius 2.0, Symfony ^7.1
 - Drop support for Sylius 1.*, PHP 8.1

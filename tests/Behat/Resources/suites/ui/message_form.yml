@@ -58,4 +58,4 @@ default:
                 - sylius.behat.context.ui.admin.notification
 
             filters:
-                tags: "@message_form && @ui && email"
+                tags: "@message_form && @ui && @email"

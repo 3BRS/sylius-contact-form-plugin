@@ -7,4 +7,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$(dirname "$DIR")"
 
 set -x
-APP_ENV="test" php vendor/bin/behat "$@"
+APP_ENV="test" ./bin/php vendor/bin/behat "$@"

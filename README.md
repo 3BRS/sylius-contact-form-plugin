@@ -40,21 +40,21 @@ Contact Form Plugin
 
 ## Installation
 
-1. Run `$ composer require 3brs/sylius-contact-form-plugin`.
+1. Run `composer require 3brs/sylius-contact-form-plugin`.
 2. Register `\ThreeBRS\SyliusContactFormPlugin\ThreeBRSSyliusContactFormPlugin` in your Kernel.
     ```php
    // config/bundles.php
     ThreeBRS\SyliusContactFormPlugin\ThreeBRSSyliusContactFormPlugin::class => ['all' => true],
    ```
-1. Add resource to `config/packages/_sylius.yaml`
+3. Add resource to `config/packages/_sylius.yaml`
 
     ```yaml
     imports:
-         ...
+         # ...
          - { resource: "@ThreeBRSSyliusContactFormPlugin/config/config.yml" }
     ```
    
-1. Add routing to `config/routes.yaml`
+4. Add routing to `config/routes.yaml`
 
     ```yaml
 
@@ -62,7 +62,7 @@ Contact Form Plugin
         resource: "@ThreeBRSSyliusContactFormPlugin/config/routing.yml"
     ```
 
-1. Define parameters in `.env` file
+5. Define parameters in `.env` file (or whenever you keep your environment variables):
 
     ```
     # Recaptcha public key setter for contact form
@@ -71,9 +71,9 @@ Contact Form Plugin
     GOOGLE_RECAPTCHA_SECRET=
     ```
 
-7. Create and run doctrine database migrations.
+6. Create and run doctrine database migrations.
 
-For the guide how to use your own entity see [Sylius docs - Customizing Models](https://docs.sylius.com/en/1.10/customization/model.html)
+For the guide how to use your own entity see [Sylius docs - Customizing Models](https://docs.sylius.com/the-customization-guide/customizing-models)
 
 ### Usage
 
@@ -82,11 +82,11 @@ For the guide how to use your own entity see [Sylius docs - Customizing Models](
 * The plugin defines the contact email of the channel (configurable in the `Channels` tab of the `configuration` section in the administration panel) as the manager's email address.
 
 ## Configuration
-   ```
+   ```yaml
     threebrs_sylius_contact_form_plugin:
-        # Define if an email should be send to the manager when contact form is send
+        # Define if an email should be sent to the manager when contact form is send
           send_manager_mail: true/false
-        # Define if an email should be send to the customer when contact form is send (copy)
+        # Define if an email should be sent to the customer when contact form is send (copy)
           send_customer_mail: true/false
         # Define 'name' field requirement in contact form
           name_required: true/false
@@ -104,22 +104,30 @@ For the guide how to use your own entity see [Sylius docs - Customizing Models](
 
 ## Development
 
+### Setup
+
+Initialize the development environment:
+
+```bash
+make init
+```
+
+This command installs dependencies, sets up the database, and prepares frontend assets (or follow related steps in Makefile).
+
 ### Usage
 
-- Create symlink from .env.dist to .env or create your own .env file
-- Develop your plugin in `/src`
-- See `bin/` for useful commands
+- Develop your plugin logic inside `/src`
+- See `bin/` for useful dev tools
 
 ### Testing
 
 After your changes you must ensure that the tests are still passing.
 
 ```bash
-$ composer install
-$ bin/console doctrine:schema:create -e test
-$ bin/behat.sh
-$ bin/phpstan.sh
-$ bin/ecs.sh
+make tests
+# Or run individual commands:
+make static  # phpstan, ecs, lint
+make behat   # behat tests
 ```
 
 License

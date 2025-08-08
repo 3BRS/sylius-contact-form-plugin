@@ -25,7 +25,7 @@ recreate_db:
 	APP_ENV=test bin/php tests/Application/bin/console doctrine:database:drop --force --if-exists
 	APP_ENV=test bin/php tests/Application/bin/console doctrine:database:create --no-interaction
 	APP_ENV=test bin/php tests/Application/bin/console doctrine:migrations:migrate --no-interaction
-	APP_ENV=test bin/php tests/Application/bin/console doctrine:schema:update --force --no-interaction
+	APP_ENV=test bin/php tests/Application/bin/console doctrine:schema:update --complete --force --no-interaction
 	APP_ENV=test bin/php tests/Application/bin/console doctrine:migration:sync-metadata-storage
 
 var:

@@ -1,7 +1,7 @@
 three_brs_sylius_contact_form:
-  # Define if an email should be send to the manager when contact form is send
+  # Define if an email should be sent to the manager when contact form is send
   send_manager_mail: false
-  # Define if an email should be send to the customer who send the contact form when the administrator answered it
+  # Define if an email should be sent to the customer who send the contact form when the administrator answered it
   send_customer_mail: false
   # Define 'name' field requirement in contact form
   name_required: false

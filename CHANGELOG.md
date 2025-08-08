@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## v2.0.1 (2025-08-08)
+- Remove not guaranteed support for Sylius 2.1
 - Improve developer experience by `make` commands
 
 ## v2.0.0 (2025-06-07)

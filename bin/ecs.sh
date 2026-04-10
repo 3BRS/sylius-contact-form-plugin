@@ -8,4 +8,4 @@ cd "$(dirname "$DIR")"
 
 set -x
 
-./bin/php vendor/bin/ecs check --config=ecs.php "$@"
+vendor/bin/ecs check --config=ecs.php "$@"

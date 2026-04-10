@@ -1,7 +1,9 @@
 api_platform:
-  title: Hello API Platform
-  version: 1.0.0
-  defaults:
-    stateless: true
-    cache_headers:
-      vary: ["Content-Type", "Authorization", "Origin"]
+    mapping:
+        paths:
+            - '%kernel.project_dir%/config/api_platform'
+            - '%kernel.project_dir%/src/Entity'
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]

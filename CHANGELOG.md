@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.1.0 (2026-04-10)
+- Support for Sylius 2.1 and 2.2, Symfony 7.4
+- Drop support for Sylius 2.0, Symfony 6.4
+
 ## v2.0.1 (2025-08-08)
 - Remove not guaranteed support for Sylius 2.1
 - Improve developer experience by `make` commands

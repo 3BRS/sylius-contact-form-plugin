@@ -14,7 +14,7 @@ function docker_run {
 
 function docker_compose_run {
 	# port 0 means use first available, random port (we do not need specific port for tests)
-	PHPNGINX_HOST_PORT=0 docker compose run --rm $DC_INTERACTIVITY "$@"
+	APP_HOST_MAPPING_PORT=0 docker compose run --rm $DC_INTERACTIVITY "$@"
 }
 
 function docker_compose_exec {

@@ -15,7 +15,6 @@
 
 yarn-error.log
 
-/bin-docker/
 /deploy/
 /docker/
 

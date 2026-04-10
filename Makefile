@@ -1,78 +1,113 @@
-.PHONY: phpstan ecs fix install backend frontend recreate_db var cache fixtures lint behat init tests static ci run php-bash bash composer yarn php
+.PHONY: run init cache cache-test yarn ci
 
-phpstan:
-	APP_ENV=test bin/phpstan.sh
+MAKEFLAGS += --no-print-directory # to disable "make: Entering directory ..." messages
 
-ecs:
-	APP_ENV=test bin/ecs.sh --clear-cache
+run: init
 
-fix:
-	APP_ENV=test bin/ecs.sh --fix
+init:
+	which docker > /dev/null || (echo "Please install docker binary" && exit 1)
+	if command -v direnv >/dev/null; then \
+		[ -f .envrc ] || cp .envrc.dist .envrc; \
+		direnv allow; \
+	fi
+	docker compose up -d
+	./bin-docker/composer update --no-interaction
+	@make cache
+	./bin-docker/php ./bin/console doctrine:database:create --no-interaction --if-not-exists
+	./bin-docker/php ./bin/console doctrine:migrations:migrate --no-interaction
+	./bin-docker/php ./bin/console doctrine:schema:update --force --complete --no-interaction
+	./bin-docker/php ./bin/console doctrine:migration:sync-metadata-storage
+	./bin-docker/php ./bin/console assets:install
+	./bin-docker/yarn --cwd=tests/Application install --pure-lockfile
+	GULP_ENV=prod ./bin-docker/yarn --cwd=tests/Application build
 
-install:
-	cp --update=none .env.dist .env
-	bin/composer install --no-interaction --no-scripts
-	APP_ENV=test bin/php tests/Application/bin/console lexik:jwt:generate-keypair --skip-if-exists --quiet
-
-backend: recreate_db
-
-frontend:
-	APP_ENV=test bin/php tests/Application/bin/console assets:install
-	bin/yarn --cwd=tests/Application install --pure-lockfile
-	GULP_ENV=prod bin/yarn --cwd=tests/Application build
-
-recreate_db:
-	APP_ENV=test bin/php tests/Application/bin/console doctrine:database:drop --force --if-exists
-	APP_ENV=test bin/php tests/Application/bin/console doctrine:database:create --no-interaction
-	APP_ENV=test bin/php tests/Application/bin/console doctrine:migrations:migrate --no-interaction
-	APP_ENV=test bin/php tests/Application/bin/console doctrine:schema:update --complete --force --no-interaction
-	APP_ENV=test bin/php tests/Application/bin/console doctrine:migration:sync-metadata-storage
-
-var:
-	rm -fr tests/Application/var
-	mkdir -p tests/Application/var/cache
-	mkdir -p tests/Application/var/log
-	touch tests/Application/var/log/test.log
-	chmod -R 777 tests/Application/var
-	mkdir -p tests/Application/public/media/cache && chmod -R 777 tests/Application/public/media
+init-tests:
+	which docker > /dev/null || (echo "Please install docker binary" && exit 1)
+	if command -v direnv >/dev/null; then \
+		[ -f .envrc ] || cp .envrc.dist .envrc; \
+		direnv allow; \
+	fi
+	docker compose up -d
+	./bin-docker/composer update --no-interaction
+	@make cache-test
+	./bin-docker/php ./bin/console --env=test doctrine:database:drop --no-interaction --force --if-exists
+	./bin-docker/php ./bin/console --env=test doctrine:database:create --no-interaction --if-not-exists
+	./bin-docker/php ./bin/console --env=test doctrine:migrations:migrate --no-interaction
+	./bin-docker/php ./bin/console --env=test doctrine:schema:update --force --complete --no-interaction
+	./bin-docker/php ./bin/console --env=test doctrine:migration:sync-metadata-storage
+	./bin-docker/php ./bin/console --env=test assets:install
+	./bin-docker/yarn install --pure-lockfile
+	./bin-docker/yarn --cwd=tests/Application install --pure-lockfile
+	GULP_ENV=prod ./bin-docker/yarn --cwd=tests/Application build
 
 cache:
-	APP_ENV=test bin/php tests/Application/bin/console cache:clear
-	@make var
+	docker compose run --rm --user=root --entrypoint=sh php -c 'rm -fr tests/Application/var/cache || (sleep 0.3 && rm -fr tests/Application/var/cache)'
+	./bin-docker/php ./bin/console cache:clear --no-warmup
 
-fixtures:
-	@make recreate_db
-	APP_ENV=test bin/php tests/Application/bin/console sylius:fixtures:load default --no-interaction
+cache-test:
+	docker compose run --rm --user=root --entrypoint=sh php -c 'rm -fr tests/Application/var/cache/test || (sleep 0.3 && rm -fr tests/Application/var/cache/test)'
+	./bin-docker/php ./bin/console --env=test cache:clear --no-warmup
 
-lint:
-	APP_ENV=test bin/symfony-lint.sh
-	APP_ENV=test bin/doctrine-lint.sh
+static: fix static-only
+
+static-only:
+	@make ecs
+	@make phpstan
+	@make composer-lint
+	@make symfony-lint
+	@make doctrine-lint
+	@make say-ok
+
+phpstan:
+	./bin-docker/docker-bash bin/phpstan.sh
 
 behat:
-	APP_ENV=test bin/behat.sh
+	./bin-docker/docker-bash bin/behat.sh
 
-init: install backend frontend
+ecs:
+	./bin-docker/docker-bash bin/ecs.sh
+
+symfony-lint:
+	./bin-docker/docker-bash bin/symfony-lint.sh
+
+composer-lint:
+	./bin-docker/composer validate --no-check-lock
+
+doctrine-lint:
+	./bin-docker/docker-bash bin/doctrine-lint.sh
+
+lint: symfony-lint composer-lint doctrine-lint
+
+yarn-build:
+	./bin-docker/yarn --cwd=tests/Application install --pure-lockfile
+	GULP_ENV=prod ./bin-docker/yarn --cwd=tests/Application build
+
+yarn: yarn-build
+
+schema-reset:
+	./bin-docker/php ./bin/console doctrine:database:drop --force --if-exists
+	./bin-docker/php ./bin/console doctrine:database:create --no-interaction
+	./bin-docker/php ./bin/console doctrine:migrations:migrate --no-interaction
+	./bin-docker/php ./bin/console doctrine:schema:update --force --complete --no-interaction
+	./bin-docker/php ./bin/console doctrine:migration:sync-metadata-storage
+
+fix:
+	./bin-docker/docker-bash bin/ecs.sh --fix
+
+bare-fixtures:
+	@echo "############\nLoading fixtures: $(SPEED_MESSAGE)\n############"
+	./bin-docker/php ./bin/console sylius:fixtures:load --no-interaction
+
+fixtures: schema-reset bare-fixtures cache
 
 tests: static behat
 
-static: phpstan ecs lint
+ci: init-tests tests
 
-ci: init static behat
-
-run:
-	docker compose up --detach
+say-ok:
+	@echo "✅ OK ✅"
 
 php-bash:
-	@make run
-	docker compose exec --user 1000:1000 php bash
+	./bin-docker/docker-bash
 
 bash: php-bash
-
-composer:
-	bin/composer
-
-yarn:
-	bin/yarn
-
-php:
-	bin/php

@@ -6,6 +6,7 @@
 !/public/media/image/
 /public/media/image/*
 !/public/media/image/.gitkeep
+/config/reference.php
 
 /node_modules
 

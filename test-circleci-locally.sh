@@ -9,8 +9,8 @@ Usage: $0 [OPTIONS]
 Test the plugin with different version combinations, mimicking CircleCI matrix tests.
 
 OPTIONS:
-    -s, --sylius VERSION       Sylius version(s) to test (e.g., "2.1" or "2.1 2.2")
-    -y, --symfony VERSION      Symfony version(s) to test (e.g., "7.4")
+    -s, --sylius VERSION       Sylius version(s) to test (e.g., "2.1" or "2.1 2.2 2.3")
+    -y, --symfony VERSION      Symfony version(s) to test (e.g., "7.4" or "7.4 8.1")
     -p, --preference PREF      Composer preference(s) (prefer-dist, prefer-lowest, or both)
     -h, --help                 Show this help message
 
@@ -25,19 +25,25 @@ EXAMPLES:
     $0 --sylius 2.1 --symfony 7.4
 
     # Test multiple Sylius versions with prefer-dist only
-    $0 --sylius "2.1 2.2" --symfony 7.4 --preference prefer-dist
+    $0 --sylius "2.1 2.2 2.3" --symfony 7.4 --preference prefer-dist
+
+    # Test multiple Symfony versions with prefer-dist only
+    $0 --sylius 2.3 --symfony "7.4 8.1" --preference prefer-dist
 
 If no options are provided, versions are parsed from .circleci/config.yml
 EOF
     exit 0
 }
 
-# Backup composer.json and restore it on exit
+# Backup composer.json and package.json and restore them on exit
 cleanup() {
     echo ""
-    echo "=== Cleanup: Restoring original composer.json ==="
+    echo "=== Cleanup: Restoring original composer.json and package.json ==="
     if [ -f composer.json.backup ]; then
         mv composer.json.backup composer.json
+    fi
+    if [ -f tests/Application/package.json.backup ]; then
+        mv tests/Application/package.json.backup tests/Application/package.json
     fi
     rm -f composer.lock
 }
@@ -57,14 +63,23 @@ run_test_suite() {
 
     # Clean up
     rm -f composer.lock
+    rm -fr vendor
     ./bin-docker/docker-bash -c "rm -fr tests/Application/var/cache/*/*"
 
     # Set versions
     ./bin-docker/composer require "sylius/sylius:${sylius_version}.*" --no-interaction --no-update --no-scripts
-    grep -o -E '"(symfony/[^"]+)"' composer.json | grep -v -E '(symfony/flex|symfony/webpack-encore-bundle|symfony/maker-bundle)' | xargs printf "%s:${symfony_version}.* " | xargs ./bin-docker/composer require --no-interaction --no-update
+    # global Flex applies extra.symfony.require to all symfony/* packages including transitive ones
+    ./bin-docker/composer config extra.symfony.require "${symfony_version}.*"
+    ./bin-docker/composer global config --no-plugins allow-plugins.symfony/flex true
+    ./bin-docker/composer global require --no-progress --no-scripts --no-plugins symfony/flex
+    # Sylius 2.1 and 2.2 Behat contexts need Behat 3, their admin and shop assets Encore 5
+    if [[ "${sylius_version}" =~ ^2\.[12]$ ]]; then
+        ./bin-docker/composer require --dev "behat/behat:^3.34" --no-interaction --no-update --no-scripts
+        ./bin-docker/docker-bash -c "cd tests/Application && npm pkg set 'devDependencies.@symfony/webpack-encore=^5.0.1'"
+    fi
 
     # Composer update
-    ./bin-docker/composer update --no-interaction --${composer_preference} --no-plugins
+    ./bin-docker/composer update --no-interaction --${composer_preference}
 
     # Clear cache before yarn
     ./bin-docker/docker-bash -c "rm -fr tests/Application/var/cache/*/*"
@@ -129,9 +144,10 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Backup original composer.json
-echo "Step 0: Backup original composer.json"
+# Backup original composer.json and package.json
+echo "Step 0: Backup original composer.json and package.json"
 cp composer.json composer.json.backup
+cp tests/Application/package.json tests/Application/package.json.backup
 
 # If no versions specified, parse from CircleCI config
 if [ ${#SYLIUS_VERSIONS[@]} -eq 0 ] || [ ${#SYMFONY_VERSIONS[@]} -eq 0 ]; then
@@ -176,8 +192,9 @@ echo ""
 for sylius_version in "${SYLIUS_VERSIONS[@]}"; do
     for symfony_version in "${SYMFONY_VERSIONS[@]}"; do
         for composer_preference in "${COMPOSER_PREFERENCES[@]}"; do
-            # Restore composer.json for each test
+            # Restore composer.json and package.json for each test
             cp composer.json.backup composer.json
+            cp tests/Application/package.json.backup tests/Application/package.json
 
             run_test_suite "$sylius_version" "$symfony_version" "$composer_preference"
         done

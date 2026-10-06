@@ -1,6 +1,6 @@
-FROM node:20-alpine AS node
+FROM node:22-alpine AS node
 
-FROM ghcr.io/sylius/sylius-php:8.3-xdebug-alpine
+FROM ghcr.io/sylius/sylius-php:8.4-xdebug-alpine
 
 RUN apk add --no-cache \
     bash \

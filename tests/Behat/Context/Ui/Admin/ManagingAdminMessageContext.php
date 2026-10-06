@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Pages\Admin\Message\ShowPageInterface;
@@ -17,9 +19,7 @@ final class ManagingAdminMessageContext implements Context
     {
     }
 
-    /**
-     * @When I view the summary of the message
-     */
+    #[When('I view the summary of the message')]
     public function iViewTheSummaryOfTheMessage()
     {
         $message = $this->contactFormMessageRepository->createQueryBuilder('o')
@@ -33,25 +33,19 @@ final class ManagingAdminMessageContext implements Context
         $this->showPage->open(['id' => $message->getId()]);
     }
 
-    /**
-     * @When I write an answer message
-     */
+    #[When('I write an answer message')]
     public function iWriteAnAnswerMessage()
     {
         $this->showPage->addMessage();
     }
 
-    /**
-     * @When I send the answer message
-     */
+    #[When('I send the answer message')]
     public function iSendTheAnswerMessage(): void
     {
         $this->showPage->sendMessage();
     }
 
-    /**
-     * @Then I should be notified that the message as been created
-     */
+    #[Then('I should be notified that the message as been created')]
     public function iShouldBeNotifiedThatTheMessageAsBeenCreated(): void
     {
         $this->notificationChecker->checkNotification(
@@ -60,9 +54,7 @@ final class ManagingAdminMessageContext implements Context
         );
     }
 
-    /**
-     * @Then I see the message created
-     */
+    #[Then('I see the message created')]
     public function iSeeTheMessageCreated()
     {
         $this->showPage->showMessage();

@@ -38,6 +38,14 @@ Contact Form Plugin
 	<img src="https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/doc/messages_management_account_menu.PNG?raw=true"/>
 </p>
 
+## Requirements
+
+| Package | Version         |
+|---------|-----------------|
+| PHP     | ^8.2            |
+| Sylius  | ^2.1            |
+| Symfony | ^7.4 \|\| ^8.0  |
+
 ## Installation
 
 1. Run `composer require 3brs/sylius-contact-form-plugin`.

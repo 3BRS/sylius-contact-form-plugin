@@ -29,7 +29,7 @@ class ContactFormMessageAnswerType extends AbstractType
     /**
      * @inheritdoc
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'threebrs_sylius_contact_answer_form';
     }

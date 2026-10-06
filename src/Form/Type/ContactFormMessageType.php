@@ -46,9 +46,7 @@ class ContactFormMessageType extends AbstractType
                 ->add('customerName', TextType::class, [
                     'label' => 'threebrs_sylius_contact_form_plugin.customerName',
                     'constraints' => [
-                        new NotBlank([
-                            'allowNull' => true,
-                        ]),
+                        new NotBlank(allowNull: true),
                     ],
                     'required' => false,
                 ]);
@@ -68,9 +66,7 @@ class ContactFormMessageType extends AbstractType
                 ->add('phone', TelType::class, [
                     'label' => 'threebrs_sylius_contact_form_plugin.phone',
                     'constraints' => [
-                        new NotBlank([
-                            'allowNull' => true,
-                        ]),
+                        new NotBlank(allowNull: true),
                     ],
                     'required' => false,
                 ]);
@@ -80,7 +76,7 @@ class ContactFormMessageType extends AbstractType
     /**
      * @inheritdoc
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'threebrs_sylius_contact_form';
     }

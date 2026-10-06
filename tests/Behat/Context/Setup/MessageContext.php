@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\ThreeBRS\SyliusContactFormPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\Customer;
 use ThreeBRS\SyliusContactFormPlugin\Entity\ContactFormMessage;
@@ -14,9 +15,9 @@ final class MessageContext implements Context
     public function __construct(private EntityManagerInterface $entityManager) {}
 
     /**
-     * @Given there is a customer :customer that submits a contact form
      * @noinspection PhpUnused
      */
+    #[Given('there is a customer :customer that submits a contact form')]
     public function thereIsACustomerThatSubmitsAContactForm(Customer $customer): void
     {
         $message = new ContactFormMessage();

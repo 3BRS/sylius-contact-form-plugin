@@ -7,8 +7,6 @@ services:
   ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageRepositoryInterface: '@threebrs_sylius_contact_form_plugin.repository.message'
   ThreeBRS\SyliusContactFormPlugin\Repository\ContactFormMessageAnswerRepositoryInterface: '@threebrs_sylius_contact_form_plugin.repository.answer'
 
-  ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider: ~
-
   ThreeBRS\SyliusContactFormPlugin\Model\ContactFormSettingsProvider:
     arguments:
       $config: '%three_brs_sylius_contact_form%'

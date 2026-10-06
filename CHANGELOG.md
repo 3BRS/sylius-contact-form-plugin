@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.2.0 (2026-10-06)
+- Support for Sylius 2.3, Symfony 7.4 and 8
+- *BC break: `getBlockPrefix()` of `ContactFormMessageType` and `ContactFormMessageAnswerType` declares the `string` return type*
+
 ## v2.1.0 (2026-04-10)
 - Support for Sylius 2.1 and 2.2, Symfony 7.4
 - Drop support for Sylius 2.0, Symfony 6.4

@@ -188,6 +188,9 @@ echo "  - Symfony versions: ${SYMFONY_VERSIONS[*]}"
 echo "  - Composer preferences: ${COMPOSER_PREFERENCES[*]}"
 echo ""
 
+# Global Flex is installed into the php container, all bin-docker calls must reach the same running container
+docker compose up -d
+
 # Run all combinations
 for sylius_version in "${SYLIUS_VERSIONS[@]}"; do
     for symfony_version in "${SYMFONY_VERSIONS[@]}"; do

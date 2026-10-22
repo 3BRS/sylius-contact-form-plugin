@@ -56,7 +56,7 @@ class ContactFormController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            if ($this->recaptchaPublic !== '' && $this->recaptchaSecret !== 'null' && $form->isValid()) {
+            if ($this->isRecaptchaEnabled() && $form->isValid()) {
                 $recaptcha = new ReCaptcha($this->recaptchaSecret);
                 $resp = $recaptcha->verify((string) $request->request->get('g-recaptcha-response'), $request->getClientIp());
                 if (!$resp->isSuccess()) {
@@ -93,7 +93,12 @@ class ContactFormController
 
         return new Response($this->templatingEngine->render('@ThreeBRSSyliusContactFormPlugin/Shop/contactPage.html.twig', [
             'form' => $form->createView(),
-            'key' => $this->recaptchaPublic,
+            'key' => $this->isRecaptchaEnabled() ? $this->recaptchaPublic : '',
         ]));
+    }
+
+    private function isRecaptchaEnabled(): bool
+    {
+        return $this->recaptchaPublic !== '' && $this->recaptchaSecret !== '';
     }
 }

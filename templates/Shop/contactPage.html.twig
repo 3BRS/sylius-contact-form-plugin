@@ -32,7 +32,7 @@
                             {{ form_row(form.message) }}
                         </div>
 
-                        {% if key is null %}
+                        {% if key is empty %}
                             <button type="submit" class="btn btn-primary w-100">
                                 {{ 'sylius.ui.send'|trans }}
                             </button>

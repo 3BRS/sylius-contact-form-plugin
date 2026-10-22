@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.2.1 (2026-10-22)
+- Load reCAPTCHA only when both `GOOGLE_RECAPTCHA_SITE_KEY` and `GOOGLE_RECAPTCHA_SECRET` are set
+- *BC break: `GOOGLE_RECAPTCHA_SECRET=null` no longer disables reCAPTCHA verification, leave both keys empty instead*
+
 ## v2.2.0 (2026-10-06)
 - Support for Sylius 2.3, Symfony 7.4 and 8
 - *BC break: `getBlockPrefix()` of `ContactFormMessageType` and `ContactFormMessageAnswerType` declares the `string` return type*

@@ -85,7 +85,7 @@ For the guide how to use your own entity see [Sylius docs - Customizing Models](
 
 ### Usage
 
-* Parameters can be left empty if you want to run the plugin without recaptcha verification.
+* Parameters can be left empty if you want to run the plugin without recaptcha verification. Recaptcha is enabled only when both keys are set, otherwise the Google script is not loaded.
 * The plugin is made to work with invisible V2 recaptcha, it is essential to select this version during their creation.
 * The plugin defines the contact email of the channel (configurable in the `Channels` tab of the `configuration` section in the administration panel) as the manager's email address.
 
